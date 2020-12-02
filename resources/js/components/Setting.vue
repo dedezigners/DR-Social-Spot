@@ -420,7 +420,30 @@ export default {
     data() {
         return {
             SECTIONS,
-            activeSecton: SECTIONS.GENERAL
+            activeSecton: SECTIONS.GENERAL,
+            form: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                backup_email: '',
+                address: '',
+                city: '',
+                state: '',
+                postal_code: '',
+                country: '',
+            }
+        }
+    },
+    mounted() {
+        this.init();
+    },
+    methods: {
+        init() {
+            axios.get('/user-info')
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => console.log(err.response.data));
         }
     }
 }

@@ -55,4 +55,13 @@ class UserController extends Controller
 
         return response()->json($response, $response['code']);
     }
+
+    public function getUserInfo()
+    {
+        return response()->json([
+            'code' => 200,
+            'message' => 'Success',
+            'data' => Auth::user()
+        ]);
+    }
 }

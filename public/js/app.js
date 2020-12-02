@@ -6644,8 +6644,31 @@ var SECTIONS = Object.freeze({
   data: function data() {
     return {
       SECTIONS: SECTIONS,
-      activeSecton: SECTIONS.GENERAL
+      activeSecton: SECTIONS.GENERAL,
+      form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        backup_email: '',
+        address: '',
+        city: '',
+        state: '',
+        postal_code: '',
+        country: ''
+      }
     };
+  },
+  mounted: function mounted() {
+    this.init();
+  },
+  methods: {
+    init: function init() {
+      axios.get('/user-info').then(function (res) {
+        console.log(res.data);
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
+    }
   }
 });
 

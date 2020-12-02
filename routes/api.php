@@ -19,5 +19,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('/user-validation', 'UserController@userValidation');
-Route::post('/user', 'UserController@signup');
+Route::post('/signup', 'UserController@signup');
 Route::post('/login', 'UserController@login');
+Route::get('/user-info', 'UserController@getUserInfo');
