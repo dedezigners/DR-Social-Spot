@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group([
+Route::post('/user-validation', 'UserController@userValidation');
 
+// JWT Routes
+Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
-
 ], function ($router) {
 
     Route::post('signup', 'AuthController@signup');
@@ -29,5 +30,8 @@ Route::group([
 
 });
 
-Route::post('/user-validation', 'UserController@userValidation');
-Route::get('/user-info', 'UserController@getUserInfo');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/user-info', 'UserController@getUserInfo');
+
+});
