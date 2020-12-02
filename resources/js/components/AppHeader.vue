@@ -79,19 +79,19 @@
                     </div>
 
                     <div v-else id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
-                        <div class="user-image" @click="showDropdown">
+                        <div class="user-image" @click="enableDropdown = true">
                             <img src="/assets/img/jenna.png" />
                             <span class="indicator"></span>
                         </div>
 
-                        <div :class="navDropDownclasses">
+                        <div :class="['nav-drop is-account-dropdown', enableDropdown ? 'is-active' : '']">
                             <div class="inner">
                                 <div class="nav-drop-header">
                                     <span class="username">Jenna Davis</span>
-                                    <a @click="hideDropdown"><load-svg feather="x" /></a>
+                                    <a @click="enableDropdown = false"><load-svg feather="x" /></a>
                                 </div>
-                                <div class="nav-drop-body account-items">
-                                    <a id="profile-link" href="/profile-main.html" class="account-item">
+                                <div class="nav-drop-body account-items" @click="enableDropdown = false">
+                                    <router-link to="/profile" class="account-item">
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
@@ -103,44 +103,44 @@
                                                 <small>Main account</small>
                                             </div>
                                             <div class="media-right">
-                                                <i data-feather="check"></i>
+                                                <load-svg feather="check" />
                                             </div>
                                         </div>
-                                    </a>
+                                    </router-link>
                                     <hr class="account-divider">
-                                    <a href="/options-settings.html" class="account-item">
+                                    <router-link to="/settings" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
-                                                <i data-feather="settings"></i>
+                                                <load-svg feather="settings" />
                                             </div>
                                             <div class="media-content">
                                                 <h3>Settings</h3>
                                                 <small>Access widget settings.</small>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="account-item">
+                                    </router-link>
+                                    <router-link to="#!" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
-                                                <i data-feather="life-buoy"></i>
+                                                <load-svg feather="life-buoy" />
                                             </div>
                                             <div class="media-content">
                                                 <h3>Help</h3>
                                                 <small>Contact our support.</small>
                                             </div>
                                         </div>
-                                    </a>
-                                    <a class="account-item">
+                                    </router-link>
+                                    <router-link to="#!" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
-                                                <i data-feather="power"></i>
+                                                <load-svg feather="power" />
                                             </div>
                                             <div class="media-content">
                                                 <h3>Log out</h3>
                                                 <small>Log out from your account.</small>
                                             </div>
                                         </div>
-                                    </a>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -187,8 +187,8 @@ export default {
     name: 'Header',
     data() {
         return {
-            navDropDownclasses: 'nav-drop is-account-dropdown',
-            isAuthenticate: false, 
+            enableDropdown: false,
+            isAuthenticate: true, 
         }
     },
     methods: {
