@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div :class="['app-overlay', overlay ? 'is-active' : '']"></div>
         <app-header />
         <router-view></router-view>
     </div>
@@ -7,7 +8,25 @@
 
 <script>
 export default {
-    name: 'App'
+    name: 'App',
+    data() {
+        return {
+            overlay: false,
+        }
+    },
+    mounted() {
+        this.init();
+    },
+    methods: {
+        init() {
+            EventBus.$on('activateComposing', () => {
+                this.overlay = true;
+            });
+            EventBus.$on('deActivateComposing', () => {
+                this.overlay = false;
+            });
+        }
+    }
 }
 </script>
 

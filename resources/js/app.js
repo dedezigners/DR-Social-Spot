@@ -10,6 +10,8 @@ import User from './helpers/user';
 window.user = User;
 require('./bootstrap');
 
+window.EventBus = new Vue();
+
 new Vue({
     el: '#app',
     router,
