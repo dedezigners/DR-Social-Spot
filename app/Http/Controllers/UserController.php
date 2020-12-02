@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -58,10 +59,32 @@ class UserController extends Controller
 
     public function getUserInfo()
     {
-        return response()->json([
-            'code' => 200,
-            'message' => 'Success',
-            'data' => Auth::user()
+        return new UserResource(Auth::user());
+    }
+    
+    public function updateUser(Request $request)
+    {
+        $this->validate($request, [
+            'first_name' => 'required|string|max:20|alpha',
+            'last_name' => 'required|string|max:20|alpha',
+            'email' => 'required|email',
+            'backup_email' => 'nullable|email',
         ]);
+
+        $user = Auth::user();
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
+        $user->email = $request->get('email');
+        $user->backup_email = $request->get('backup_email');
+        $user->address = $request->get('address');
+        $user->city = $request->get('city');
+        $user->postal_code = $request->get('postal_code');
+        $user->state = $request->get('state');
+        $user->country = $request->get('country');
+        $user->save();
+
+        return response()->json([
+            'message' => "Profile updated successfully!"
+        ], 200);
     }
 }

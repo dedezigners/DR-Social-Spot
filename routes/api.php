@@ -33,5 +33,6 @@ Route::group([
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/user-info', 'UserController@getUserInfo');
+    Route::post('/user', 'UserController@updateUser');
 
 });

@@ -6632,6 +6632,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var SECTIONS = Object.freeze({
   GENERAL: 'GENERAL',
   SECURITY: 'SECURITY',
@@ -6643,17 +6673,9 @@ var SECTIONS = Object.freeze({
     return {
       SECTIONS: SECTIONS,
       activeSecton: SECTIONS.GENERAL,
-      form: {
-        first_name: '',
-        last_name: '',
-        email: '',
-        backup_email: '',
-        address: '',
-        city: '',
-        state: '',
-        postal_code: '',
-        country: ''
-      }
+      generalForm: [],
+      message: '',
+      className: 'error'
     };
   },
   mounted: function mounted() {
@@ -6661,10 +6683,24 @@ var SECTIONS = Object.freeze({
   },
   methods: {
     init: function init() {
+      var _this = this;
+
       axios.get('/user-info').then(function (res) {
-        console.log(res.data);
+        return _this.generalForm = res.data.data;
       })["catch"](function (err) {
         return console.log(err.response.data);
+      });
+    },
+    updateUser: function updateUser() {
+      var _this2 = this;
+
+      axios.post('/user', this.generalForm).then(function (res) {
+        _this2.message = res.data.message;
+        _this2.className = 'success';
+      })["catch"](function (err) {
+        console.log(err.response.data);
+        _this2.message = err.response.data.message;
+        _this2.className = 'error';
       });
     }
   }
@@ -11929,6 +11965,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, ".inline-error .danger-text[data-v-6bdc8b8e] {\n  padding: 10px;\n  border-radius: 5px;\n  background: rgba(255, 30, 45, 0.1);\n  border: 1px solid #ff1e2d;\n  color: #ff1e2d;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".info-wrapper[data-v-5f96e096] {\n  padding: 15px;\n  margin-bottom: 20px;\n  border-radius: 5px;\n}\n.info-wrapper.success[data-v-5f96e096] {\n  background: #42ba96;\n  color: #fff;\n}\n.info-wrapper.error[data-v-5f96e096] {\n  background: #d9534f;\n  color: #fff;\n}", ""]);
 
 // exports
 
@@ -43143,6 +43198,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Signup.vue?vue&type=style&index=0&id=5c0ed343&lang=scss&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Signup.vue?vue&type=style&index=0&id=5c0ed343&lang=scss&scoped=true& ***!
@@ -52472,6 +52557,12 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "settings-wrapper" }, [
+      _vm.message
+        ? _c("div", { class: ["info-wrapper", _vm.className] }, [
+            _c("h5", [_vm._v(_vm._s(_vm.message))])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -52503,8 +52594,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.first_name,
+                              expression: "generalForm.first_name"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "text", value: "Jenna" }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.first_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "first_name",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -52521,8 +52633,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.email,
+                              expression: "generalForm.email"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "text", value: "jennadavis@gmail.com" }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "email",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -52541,8 +52674,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.last_name,
+                              expression: "generalForm.last_name"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "text", value: "Davis" }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.last_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "last_name",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -52559,8 +52713,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.backup_email,
+                              expression: "generalForm.backup_email"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "text", value: "jenn34@outlook.com" }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.backup_email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "backup_email",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -52573,9 +52748,45 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _c("div", { staticClass: "column is-12" }, [
+                    _c("div", { staticClass: "field field-group" }, [
+                      _c("label", [_vm._v("Address")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.address,
+                              expression: "generalForm.address"
+                            }
+                          ],
+                          staticClass: "textarea is-fade",
+                          attrs: {
+                            type: "text",
+                            rows: "1",
+                            placeholder: "Fill in your address..."
+                          },
+                          domProps: { value: _vm.generalForm.address },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "address",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "column is-6" }, [
                     _c("div", { staticClass: "field field-group" }, [
@@ -52583,8 +52794,111 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.city,
+                              expression: "generalForm.city"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "text", value: "Melbourne" }
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.city },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "city",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-icon" },
+                          [_c("load-svg", { attrs: { feather: "map-pin" } })],
+                          1
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "column is-6" }, [
+                    _c("div", { staticClass: "field field-group" }, [
+                      _c("label", [_vm._v("Postal Code")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control has-icon" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.postal_code,
+                              expression: "generalForm.postal_code"
+                            }
+                          ],
+                          staticClass: "input is-fade",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.postal_code },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "postal_code",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-icon" },
+                          [_c("load-svg", { attrs: { feather: "map-pin" } })],
+                          1
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "column is-6" }, [
+                    _c("div", { staticClass: "field field-group" }, [
+                      _c("label", [_vm._v("State")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control has-icon" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.generalForm.state,
+                              expression: "generalForm.state"
+                            }
+                          ],
+                          staticClass: "input is-fade",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.generalForm.state },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.generalForm,
+                                "state",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -52606,11 +52920,28 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "control has-icon" }, [
                           _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.generalForm.country,
+                                expression: "generalForm.country"
+                              }
+                            ],
                             staticClass: "input is-fade",
-                            attrs: {
-                              id: "country-autocpl",
-                              type: "text",
-                              value: "Australia"
+                            attrs: { id: "country-autocpl", type: "text" },
+                            domProps: { value: _vm.generalForm.country },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.generalForm,
+                                  "country",
+                                  $event.target.value
+                                )
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -52625,11 +52956,23 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _c("div", { staticClass: "column is-12" }, [
+                    _c("div", { staticClass: "buttons" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "button is-solid accent-button form-button",
+                          on: { click: _vm.updateUser }
+                        },
+                        [_vm._v("Save Changes")]
+                      )
+                    ])
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(1)
             ])
           ])
         ]
@@ -52720,9 +53063,9 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _vm._m(2),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c("div", { staticClass: "column is-6" }, [
                     _c("div", { staticClass: "field field-group" }, [
@@ -52746,11 +53089,11 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(4)
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(7)
+              _vm._m(5)
             ])
           ])
         ]
@@ -52954,7 +53297,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(8)
+              _vm._m(6)
             ])
           ])
         ]
@@ -52968,47 +53311,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "column is-12" }, [
-      _c("div", { staticClass: "field field-group" }, [
-        _c("label", [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "control" }, [
-          _c("textarea", {
-            staticClass: "textarea is-fade",
-            attrs: {
-              type: "text",
-              rows: "1",
-              placeholder: "Fill in your address..."
-            }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-12" }, [
       _c("div", { staticClass: "form-text" }, [
         _c("p", [
           _vm._v(
             "Be sure to fill out your location settings. This will help us suggest you relevant friends and places you could like."
           )
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-12" }, [
-      _c("div", { staticClass: "buttons" }, [
-        _c(
-          "button",
-          { staticClass: "button is-solid accent-button form-button" },
-          [_vm._v("Save Changes")]
-        )
       ])
     ])
   },
@@ -71101,8 +71409,9 @@ try {
 } catch (e) {}
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var token = user.token();
-axios.defaults.baseURL = 'http://social-media.live/api';
+var token = user.token(); // axios.defaults.baseURL = 'http://social-media.live/api';
+
+axios.defaults.baseURL = 'https://social.dedezigners.com/api';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -71415,7 +71724,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Setting_vue_vue_type_template_id_5f96e096_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Setting.vue?vue&type=template&id=5f96e096&scoped=true& */ "./resources/js/components/Setting.vue?vue&type=template&id=5f96e096&scoped=true&");
 /* harmony import */ var _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Setting.vue?vue&type=script&lang=js& */ "./resources/js/components/Setting.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& */ "./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -71423,7 +71734,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Setting_vue_vue_type_template_id_5f96e096_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Setting_vue_vue_type_template_id_5f96e096_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -71452,6 +71763,22 @@ component.options.__file = "resources/js/components/Setting.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Setting.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Setting.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Setting.vue?vue&type=style&index=0&id=5f96e096&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Setting_vue_vue_type_style_index_0_id_5f96e096_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 

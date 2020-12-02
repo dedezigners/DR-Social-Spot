@@ -46,6 +46,11 @@
             </div>
         </div>
         <div class="settings-wrapper">
+
+            <div v-if="message" :class="['info-wrapper', className ]">
+                <h5>{{ message }}</h5>
+            </div>
+
             <div id="general-settings" :class="['settings-section', activeSecton === SECTIONS.GENERAL ? 'is-active' : '']">
                 <div class="settings-panel">
 
@@ -65,7 +70,7 @@
                                     <div class="field field-group">
                                         <label>First Name</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="Jenna">
+                                            <input type="text" class="input is-fade" v-model="generalForm.first_name" />
                                             <div class="form-icon">
                                                 <load-svg feather="user" />
                                             </div>
@@ -75,7 +80,7 @@
                                     <div class="field field-group">
                                         <label>Email</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="jennadavis@gmail.com">
+                                            <input type="text" class="input is-fade" v-model="generalForm.email" />
                                             <div class="form-icon">
                                                 <load-svg feather="mail" />
                                             </div>
@@ -88,7 +93,7 @@
                                     <div class="field field-group">
                                         <label>Last Name</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="Davis">
+                                            <input type="text" class="input is-fade" v-model="generalForm.last_name" />
                                             <div class="form-icon">
                                                 <load-svg feather="user" />
                                             </div>
@@ -98,7 +103,7 @@
                                     <div class="field field-group">
                                         <label>Backup Email</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="jenn34@outlook.com">
+                                            <input type="text" class="input is-fade" v-model="generalForm.backup_email" />
                                             <div class="form-icon">
                                                 <load-svg feather="mail" />
                                             </div>
@@ -111,7 +116,7 @@
                                     <div class="field field-group">
                                         <label>Address</label>
                                         <div class="control">
-                                            <textarea type="text" class="textarea is-fade" rows="1" placeholder="Fill in your address..."></textarea>
+                                            <textarea type="text" class="textarea is-fade" rows="1" placeholder="Fill in your address..." v-model="generalForm.address"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -124,11 +129,34 @@
                                 </div>
 
                                 <div class="column is-6">
-                                    <!--Field-->
                                     <div class="field field-group">
                                         <label>City</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="Melbourne">
+                                            <input type="text" class="input is-fade" v-model="generalForm.city">
+                                            <div class="form-icon">
+                                                <load-svg feather="map-pin" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="column is-6">
+                                    <div class="field field-group">
+                                        <label>Postal Code</label>
+                                        <div class="control has-icon">
+                                            <input type="text" class="input is-fade" v-model="generalForm.postal_code">
+                                            <div class="form-icon">
+                                                <load-svg feather="map-pin" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="column is-6">
+                                    <div class="field field-group">
+                                        <label>State</label>
+                                        <div class="control has-icon">
+                                            <input type="text" class="input is-fade" v-model="generalForm.state">
                                             <div class="form-icon">
                                                 <load-svg feather="map-pin" />
                                             </div>
@@ -137,11 +165,10 @@
                                 </div>
 
                                 <div class="column is-6">
-                                    <!--Field-->
                                     <div class="field field-group is-autocomplete">
                                         <label>Country</label>
                                         <div class="control has-icon">
-                                            <input id="country-autocpl" type="text" class="input is-fade" value="Australia">
+                                            <input id="country-autocpl" type="text" class="input is-fade" v-model="generalForm.country" />
                                             <div class="form-icon">
                                                 <load-svg feather="globe" />
                                             </div>
@@ -151,7 +178,10 @@
 
                                 <div class="column is-12">
                                     <div class="buttons">
-                                        <button class="button is-solid accent-button form-button">Save Changes</button>
+                                        <button
+                                        class="button is-solid accent-button form-button"
+                                        @click="updateUser"
+                                        >Save Changes</button>
                                     </div>
                                 </div>
 
@@ -421,17 +451,9 @@ export default {
         return {
             SECTIONS,
             activeSecton: SECTIONS.GENERAL,
-            form: {
-                first_name: '',
-                last_name: '',
-                email: '',
-                backup_email: '',
-                address: '',
-                city: '',
-                state: '',
-                postal_code: '',
-                country: '',
-            }
+            generalForm: [],
+            message: '',
+            className: 'error'
         }
     },
     mounted() {
@@ -440,15 +462,39 @@ export default {
     methods: {
         init() {
             axios.get('/user-info')
-            .then(res => {
-                console.log(res.data);
-            })
+            .then(res => this.generalForm = res.data.data)
             .catch(err => console.log(err.response.data));
+        },
+        updateUser() {
+            axios.post('/user', this.generalForm)
+            .then(res => {
+                this.message = res.data.message
+                this.className = 'success';
+            })
+            .catch(err => {
+                console.log(err.response.data)
+                this.message = err.response.data.message
+                this.className = 'error';
+            });
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.info-wrapper{
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
 
+.info-wrapper.success{
+    background: rgb(66, 186, 150);
+    color: #fff;
+}
+
+.info-wrapper.error{
+    background: rgb(217, 83, 79);
+    color: #fff;
+}
 </style>
