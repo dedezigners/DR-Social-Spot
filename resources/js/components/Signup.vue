@@ -25,26 +25,43 @@
                     <h2 :class="['step-title', step == 1 ? 'is-active' : '']">Secure your account.</h2>
                 </div>
 
+                <div v-if="error.message" class="process-panel-wrap is-narrow is-active error-panel">
+                    <h5 class="danger">{{ error.message }}</h5>
+                </div>
+
                 <div :class="['process-panel-wrap is-narrow', step == 0 ? 'is-active' : '']">
                     <div class="form-panel">
-                        <div class="field">
+                        <div :class="['field', error.errors.first_name ? 'is-invalid' : '' ]">
                             <label>First Name</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="form.firstName" placeholder="Enter your first name">
+                                <input type="text" class="input" v-model="form.first_name" placeholder="Enter your first name">
                             </div>
                         </div>
-                        <div class="field">
+                        <small v-if="error.errors.first_name" class="danger-text">{{ error.errors.first_name[0] }}</small>
+
+                        <div :class="['field', error.errors.last_name ? 'is-invalid' : '' ]">
                             <label>Last Name</label>
                             <div class="control">
-                                <input type="text" class="input" v-model="form.lastName" placeholder="Enter your last name">
+                                <input type="text" class="input" v-model="form.last_name" placeholder="Enter your last name">
                             </div>
                         </div>
-                        <div class="field">
+                        <small v-if="error.errors.last_name" class="danger-text">{{ error.errors.last_name[0] }}</small>
+
+                        <div :class="['field', error.errors.username ? 'is-invalid' : '' ]">
+                            <label>Username</label>
+                            <div class="control">
+                                <input type="text" class="input" v-model="form.username" placeholder="Enter your email address">
+                            </div>
+                        </div>
+                        <small v-if="error.errors.username" class="danger-text">{{ error.errors.username[0] }}</small>
+
+                        <div :class="['field', error.errors.email ? 'is-invalid' : '' ]">
                             <label>Email</label>
                             <div class="control">
                                 <input type="text" class="input" v-model="form.email" placeholder="Enter your email address">
                             </div>
                         </div>
+                        <small v-if="error.errors.email" class="danger-text">{{ error.errors.email[0] }}</small>
                     </div>
 
                     <div class="buttons">
@@ -54,24 +71,29 @@
 
                 <div :class="['process-panel-wrap is-narrow', step == 1 ? 'is-active' : '']">
                     <div class="form-panel">
-                        <div class="field">
+                        <div :class="['field', error.errors.password ? 'is-invalid' : '' ]">
                             <label>Password</label>
                             <div class="control">
                                 <input type="password" v-model="form.password" class="input" placeholder="Choose a password">
                             </div>
                         </div>
-                        <div class="field">
+                        <small v-if="error.errors.password" class="danger-text">{{ error.errors.password[0] }}</small>
+
+                        <div :class="['field', error.errors.password_confirmation ? 'is-invalid' : '' ]">
                             <label>Repeat Password</label>
                             <div class="control">
-                                <input type="password" v-model="form.repeatPassword" class="input" placeholder="Repeat your password">
+                                <input type="password" v-model="form.password_confirmation" class="input" placeholder="Repeat your password">
                             </div>
                         </div>
-                        <div class="field">
+                        <small v-if="error.errors.password_confirmation" class="danger-text">{{ error.errors.password_confirmation[0] }}</small>
+
+                        <div :class="['field', error.errors.phone ? 'is-invalid' : '' ]">
                             <label>Phone Number</label>
                             <div class="control">
-                                <input type="text" v-model="form.phoneNumber" class="input" placeholder="Enter your phone number">
+                                <input type="text" v-model="form.phone" class="input" placeholder="Enter your phone number">
                             </div>
                         </div>
+                        <small v-if="error.errors.phone" class="danger-text">{{ error.errors.phone[0] }}</small>
                     </div>
 
                     <div class="buttons">
@@ -91,26 +113,69 @@ export default {
         return {
             step: 0,
             form: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                repeatPassword: '',
-                phoneNumber: ''
+                first_name: 'Atif',
+                last_name: 'Ibrahim',
+                username: 'demo',
+                email: 'demo@dede.com',
+                password: 'password',
+                password_confirmation: 'password',
+                phone: '+923024698165'
             },
             backButton: false,
+            error: {
+                message: '',
+                errors: [],
+            }
         }
     },
     methods: {
+        clearError() {
+            this.error.message = '';
+            this.error.errors = [];
+        },
         goToPassword() {
-            this.step = 1;
+            axios.post('/user-validation', this.form)
+            .then(res => {
+                this.clearError();
+                this.step = 1;
+            })
+            .catch(err => this.error = err.response.data);
         },
         goToUser() {
             this.step = 0;
         },
         signupUser() {
-            console.log('Signup process');
+            axios.post('/user', this.form)
+            .then(res => {
+                this.clearError();
+                this.$router.push({name: 'home'});
+            })
+            .catch(err => this.error = err.response.data);
         }
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.form-panel .field.is-invalid{
+    border-color: rgb(255, 30, 45);
+    margin-bottom: 0;
+}
+
+small.danger-text {
+    color: rgba(255, 30, 45, 0.8);
+    display: block;
+    padding-top: 5px;
+    margin-bottom: 20px;
+}
+
+.error-panel{
+    .danger {
+        padding: 10px;
+        border-radius: 5px;
+        background: rgba(255, 30, 45, 0.1);
+        border: 1px solid rgb(255, 30, 45);
+        color: rgb(255, 30, 45);
+    }
+}
+</style>

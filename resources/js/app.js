@@ -7,7 +7,7 @@ require('./plugins/basic-components');
 
 // Helper Class
 import User from './helpers/user';
-window.User = User;
+window.user = User;
 require('./bootstrap');
 
 new Vue({
