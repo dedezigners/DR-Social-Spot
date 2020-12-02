@@ -87,9 +87,9 @@ export default {
     },
     methods: {
         loginUser() {
-            axios.post('/login', this.form)
+            axios.post('/auth/login', this.form)
             .then(res => {
-                this.error = '';
+                user.responseAfterLogin(res);
                 this.$router.push({name: 'home'});
             })
             .catch(err => this.error = err.response.data.message);

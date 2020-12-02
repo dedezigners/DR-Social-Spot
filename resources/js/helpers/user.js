@@ -4,14 +4,9 @@ class User {
 
     responseAfterLogin(res) {
         const accessToken = res.data.access_token;
-        const admin = res.data.admin;
 
         if (accessToken) {
-            Storage.store(accessToken, admin);
-
-            if (admin) {
-                window.location = '/admin'
-            }
+            Storage.store(accessToken);
         }
 
         return true;
@@ -26,12 +21,8 @@ class User {
         return this.hasToken();
     }
 
-    logout(redirect = false) {
+    logout() {
         Storage.clear();
-
-        if (redirect) {
-            window.location = '/';
-        }
     }
 
     token() {

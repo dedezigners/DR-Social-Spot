@@ -2134,21 +2134,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Header',
   data: function data() {
     return {
       enableDropdown: false,
-      isAuthenticate: true
+      isAuthenticate: user.loggedIn()
     };
   },
   methods: {
-    showDropdown: function showDropdown() {
-      this.navDropDownclasses = 'nav-drop is-account-dropdown is-active';
-    },
-    hideDropdown: function hideDropdown() {
-      this.navDropDownclasses = 'nav-drop is-account-dropdown';
+    logout: function logout() {
+      axios.post('auth/logout');
+      user.logout();
+      this.isAuthenticate = false;
     }
   }
 });
@@ -2303,8 +2301,8 @@ __webpack_require__.r(__webpack_exports__);
     loginUser: function loginUser() {
       var _this = this;
 
-      axios.post('/login', this.form).then(function (res) {
-        _this.error = '';
+      axios.post('/auth/login', this.form).then(function (res) {
+        user.responseAfterLogin(res);
 
         _this.$router.push({
           name: 'home'
@@ -6797,10 +6795,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       step: 0,
       form: {
-        first_name: 'Atif',
-        last_name: 'Ibrahim',
-        username: 'atif',
-        email: 'atif@dede.com',
+        first_name: 'Elise',
+        last_name: 'Walker',
+        username: 'elise',
+        email: 'elise@dede.com',
         password: 'password',
         password_confirmation: 'password',
         phone: '+923024698165'
@@ -6834,8 +6832,10 @@ __webpack_require__.r(__webpack_exports__);
     signupUser: function signupUser() {
       var _this2 = this;
 
-      axios.post('/user', this.form).then(function (res) {
+      axios.post('/auth/signup', this.form).then(function (res) {
         _this2.clearError();
+
+        user.responseAfterLogin(res);
 
         _this2.$router.push({
           name: 'home'
@@ -43810,8 +43810,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "navbar is-inline-flex is-transparent no-shadow is-hidden-mobile",
-      attrs: { id: "main-navbar" }
+        "navbar is-inline-flex is-transparent no-shadow is-hidden-mobile"
     },
     [
       _c("div", { staticClass: "container is-fluid" }, [
@@ -44050,10 +44049,10 @@ var render = function() {
                               ),
                               _vm._v(" "),
                               _c(
-                                "router-link",
+                                "a",
                                 {
                                   staticClass: "account-item",
-                                  attrs: { to: "#!" }
+                                  on: { click: _vm.logout }
                                 },
                                 [
                                   _c("div", { staticClass: "media" }, [
@@ -44068,17 +44067,7 @@ var render = function() {
                                       1
                                     ),
                                     _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      { staticClass: "media-content" },
-                                      [
-                                        _c("h3", [_vm._v("Log out")]),
-                                        _vm._v(" "),
-                                        _c("small", [
-                                          _vm._v("Log out from your account.")
-                                        ])
-                                      ]
-                                    )
+                                    _vm._m(2)
                                   ])
                                 ]
                               )
@@ -44108,14 +44097,6 @@ var staticRenderFns = [
       { staticClass: "reset-search", attrs: { id: "clear-search" } },
       [_c("i", { attrs: { "data-feather": "x" } })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "drop-icon" }, [
-      _c("i", { attrs: { "data-feather": "more-vertical" } })
-    ])
   },
   function() {
     var _vm = this
@@ -44170,6 +44151,16 @@ var staticRenderFns = [
           [_vm._v("Close")]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "media-content" }, [
+      _c("h3", [_vm._v("Log out")]),
+      _vm._v(" "),
+      _c("small", [_vm._v("Log out from your account.")])
     ])
   },
   function() {
@@ -71114,7 +71105,8 @@ var token = user.token();
 axios.defaults.baseURL = 'http://social-media.live/api';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.headers.common['Accept'] = 'application/json'; // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['Authorization'] = "Bearer ".concat(token);
 
 /***/ }),
 
@@ -72231,15 +72223,13 @@ var Storage = /*#__PURE__*/function () {
     }
   }, {
     key: "store",
-    value: function store(token, admin) {
+    value: function store(token) {
       this.storeToken(token);
-      this.storeAdmin(admin);
     }
   }, {
     key: "clear",
     value: function clear() {
       localStorage.removeItem('token');
-      localStorage.removeItem('admin');
     }
   }, {
     key: "getToken",
@@ -72292,14 +72282,9 @@ var User = /*#__PURE__*/function () {
     key: "responseAfterLogin",
     value: function responseAfterLogin(res) {
       var accessToken = res.data.access_token;
-      var admin = res.data.admin;
 
       if (accessToken) {
-        _storage__WEBPACK_IMPORTED_MODULE_0__["default"].store(accessToken, admin);
-
-        if (admin) {
-          window.location = '/admin';
-        }
+        _storage__WEBPACK_IMPORTED_MODULE_0__["default"].store(accessToken);
       }
 
       return true;
@@ -72318,12 +72303,7 @@ var User = /*#__PURE__*/function () {
   }, {
     key: "logout",
     value: function logout() {
-      var redirect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       _storage__WEBPACK_IMPORTED_MODULE_0__["default"].clear();
-
-      if (redirect) {
-        window.location = '/';
-      }
     }
   }, {
     key: "token",

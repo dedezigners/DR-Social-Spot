@@ -1,5 +1,5 @@
 <template>
-    <div id="main-navbar" class="navbar is-inline-flex is-transparent no-shadow is-hidden-mobile">
+    <div class="navbar is-inline-flex is-transparent no-shadow is-hidden-mobile">
         <div class="container is-fluid">
             <div class="navbar-brand">
                 <router-link to="/" class="navbar-item">
@@ -19,10 +19,9 @@
                                 <load-svg feather="search" />
                             </span>
                             <span class="drop-icon">
-                                <i data-feather="more-vertical"></i>
+                                <load-svg feather="more-vertical" />
                             </span>
 
-                            <!-- Search Dropdown -->
                             <div class="search-options">
                                 <ul class="options-list">
                                     <!-- Search Option -->
@@ -130,7 +129,7 @@
                                             </div>
                                         </div>
                                     </router-link>
-                                    <router-link to="#!" class="account-item">
+                                    <a @click="logout" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
                                                 <load-svg feather="power" />
@@ -140,7 +139,7 @@
                                                 <small>Log out from your account.</small>
                                             </div>
                                         </div>
-                                    </router-link>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -188,15 +187,14 @@ export default {
     data() {
         return {
             enableDropdown: false,
-            isAuthenticate: true, 
+            isAuthenticate: user.loggedIn(), 
         }
     },
     methods: {
-        showDropdown() {
-            this.navDropDownclasses = 'nav-drop is-account-dropdown is-active';
-        },
-        hideDropdown() {
-            this.navDropDownclasses = 'nav-drop is-account-dropdown';
+        logout() {
+            axios.post('auth/logout');
+            user.logout();
+            this.isAuthenticate = false;
         }
     }
 }

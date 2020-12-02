@@ -113,10 +113,10 @@ export default {
         return {
             step: 0,
             form: {
-                first_name: 'Atif',
-                last_name: 'Ibrahim',
-                username: 'atif',
-                email: 'atif@dede.com',
+                first_name: 'Elise',
+                last_name: 'Walker',
+                username: 'elise',
+                email: 'elise@dede.com',
                 password: 'password',
                 password_confirmation: 'password',
                 phone: '+923024698165'
@@ -145,9 +145,10 @@ export default {
             this.step = 0;
         },
         signupUser() {
-            axios.post('/user', this.form)
+            axios.post('/auth/signup', this.form)
             .then(res => {
                 this.clearError();
+                user.responseAfterLogin(res);
                 this.$router.push({name: 'home'});
             })
             .catch(err => this.error = err.response.data);

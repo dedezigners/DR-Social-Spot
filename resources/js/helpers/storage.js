@@ -16,14 +16,12 @@ class Storage {
         localStorage.setItem('name', name);
     }
 
-    store(token, admin) {
+    store(token) {
         this.storeToken(token);
-        this.storeAdmin(admin);
     }
     
     clear() {
         localStorage.removeItem('token');
-        localStorage.removeItem('admin');
     }
 
     getToken() {
