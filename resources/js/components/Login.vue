@@ -52,9 +52,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div v-if="error" class="field inline-error">
+                                    <h5 class="danger-text">{{ error }}</h5>
+                                </div>
+
                                 <div class="field">
                                     <div class="control">
-                                        <button class="button is-solid primary-button raised is-rounded is-fullwidth">Login</button>
+                                        <button
+                                        class="button is-solid primary-button raised is-rounded is-fullwidth"
+                                        @click="loginUser">Login</button>
                                     </div>
                                 </div>
                             </div>
@@ -72,10 +79,33 @@ export default {
     data() {
         return {
             form: {
-                email: '',
-                password: ''
-            }
+                email: 'atif@dede.com',
+                password: 'password'
+            },
+            error: ""
+        }
+    },
+    methods: {
+        loginUser() {
+            axios.post('/login', this.form)
+            .then(res => {
+                this.error = '';
+                this.$router.push({name: 'home'});
+            })
+            .catch(err => this.error = err.response.data.message);
         }
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.inline-error{
+    .danger-text {
+        padding: 10px;
+        border-radius: 5px;
+        background: rgba(255, 30, 45, 0.1);
+        border: 1px solid rgb(255, 30, 45);
+        color: rgb(255, 30, 45);
+    }
+}
+</style>

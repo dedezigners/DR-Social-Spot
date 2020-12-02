@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -30,12 +31,28 @@ class UserController extends Controller
             'phone' => 'min:11|numeric'
         ]);
         
-        // $user = User::create($request->all());
-        $user = true;
+        $request['password'] = bcrypt($request->password);
+        $user = User::create($request->all());
         return response()->json([
             'code' => 200,
             'message' => "Success",
             'data' => $user
         ], 200);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        
+        if (Auth::attempt($credentials)) {
+            $response['message'] = 'Success';
+            $response['code'] = 200;
+            $response['data'] = Auth::user();
+        } else {
+            $response['message'] = 'Invalid Email or Password.';
+            $response['code'] = 401;
+        }
+
+        return response()->json($response, $response['code']);
     }
 }

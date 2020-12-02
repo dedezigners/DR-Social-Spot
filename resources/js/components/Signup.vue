@@ -115,8 +115,8 @@ export default {
             form: {
                 first_name: 'Atif',
                 last_name: 'Ibrahim',
-                username: 'demo',
-                email: 'demo@dede.com',
+                username: 'atif',
+                email: 'atif@dede.com',
                 password: 'password',
                 password_confirmation: 'password',
                 phone: '+923024698165'

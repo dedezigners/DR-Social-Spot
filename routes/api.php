@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/user-validation', 'UserController@userValidation');
 Route::post('/user', 'UserController@signup');
+Route::post('/login', 'UserController@login');
