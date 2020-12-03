@@ -8,7 +8,8 @@
                     </div>
                     <div class="column is-6">
                         <compose />
-                        <post-item />
+
+                        <post-item v-for="post in posts" :key="post.id" :post="post" />
                     </div>
                     <div class="column is-3">
                         <suggested-friends />
@@ -22,12 +23,17 @@
 <script>
 import Weather from './widgets/Weather';
 import SuggestedFriends from './widgets/SuggestedFriends';
-import Compose from './widgets/Compose';
-import PostItem from './widgets/PostItem';
+import Compose from './widgets/post/Compose';
+import PostItem from './widgets/post/PostItem';
 
 export default {
     components: {
         Weather, SuggestedFriends, Compose, PostItem
+    },
+    computed: {
+        posts: function() {
+            return this.$store.state.posts;
+        }
     }
 }
 </script>

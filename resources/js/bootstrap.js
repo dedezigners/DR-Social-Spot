@@ -22,7 +22,6 @@ axios.interceptors.response.use (response => response,
             user.logout();
         }
         console.log("Loggout from interceptors");
-        console.log(error.response.data)
         throw error;
     }
 );

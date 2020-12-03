@@ -4,5 +4,8 @@ export default {
     },
     saveUserinfo(state, payload) {
         state.userinfo = payload;
+    },
+    saveInitialPosts(state, payload) {
+        state.posts = payload;
     }
 };

@@ -31,6 +31,8 @@ export default {
                 // temp disabled
                 // this.$store.dispatch('getAuthentiactedUser');
             }
+
+            this.$store.dispatch('getInitialPosts');
         }
     }
 }

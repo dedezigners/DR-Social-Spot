@@ -4,5 +4,11 @@ export default {
         .then(res => {
             commit('saveUserinfo', res.data.data);
         });
+    },
+    getInitialPosts({ commit }) {
+        axios.get('/posts')
+        .then(res => {
+            commit('saveInitialPosts', res.data.data);
+        });
     }
 };

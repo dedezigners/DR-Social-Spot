@@ -1,48 +1,25 @@
 <template>
-    <div class="card is-post">
+    <div :class="['card is-post', post.type == 'text' ? 'is-simple' : '']">
         <div class="content-wrap">
 
             <div class="card-heading">
                 <div class="user-block">
                     <div class="image">
-                        <img src="/assets/img/avatars/dan.jpg" />
+                        <img src="https://via.placeholder.com/300x300" />
                     </div>
                     <div class="user-info">
                         <a href="#">Dan Walker</a>
-                        <span class="time">July 26 2018, 01:03pm</span>
+                        <span class="time">{{ post.created_at }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="card-body">
                 <div class="post-text">
-                    <p>Yesterday with<a href="#">@Karen Miller</a> and
-                        <a href="#">@Marvin Stemperd</a> at the
-                        <a href="#">#Rock'n'Rolla</a> concert in LA. Was totally fantastic! People were really excited about this one!</p>
+                    <p>{{ post.post }}</p>
                 </div>
-                <div class="post-image">
-                    <img src="/assets/img/demo/unsplash/1.jpg" />
-
-                    <div class="like-wrapper">
-                        <a class="like-button">
-                            <i class="mdi mdi-heart not-liked bouncy"></i>
-                            <i class="mdi mdi-heart is-liked bouncy"></i>
-                            <span class="like-overlay"></span>
-                        </a>
-                    </div>
-
-                    <div class="fab-wrapper is-share">
-                        <a class="small-fab share-fab modal-trigger" data-modal="share-modal">
-                            <load-svg feather="link-2" />
-                        </a>
-                    </div>
-
-                    <div class="fab-wrapper is-comment">
-                        <a class="small-fab">
-                            <load-svg feather="message-circle" />
-                        </a>
-                    </div>
-                </div>
+                
+                <post-action />
             </div>
 
             <div class="card-footer">
@@ -65,30 +42,38 @@
                 <div class="social-count">
                     <div class="likes-count">
                         <load-svg feather="heart" />
-                        <span>27</span>
+                        <span>0</span>
                     </div>
                     <div class="shares-count">
                         <load-svg feather="link-2" />
-                        <span>9</span>
+                        <span>0</span>
                     </div>
                     <div class="comments-count">
                         <load-svg feather="message-circle" />
-                        <span>3</span>
+                        <span>0</span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <comments />
+        <comments v-if="false" />
     </div>
 </template>
 
 <script>
-import Comments from './comments/Comments';
+import Comments from '../comments/Comments';
 export default {
     name: 'PostItem',
     components: {
         Comments
-    }
+    },
+    props: {
+        post: {
+            type: Object,
+            default: null,
+            required: true
+        }
+    },
+    
 }
 </script>

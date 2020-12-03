@@ -1,5 +1,5 @@
 <template>
-    <div id="compose-card" :class="['card is-new-content', activeComposing ? 'is-highlighted' : '']">
+    <div v-if="isAuth" :class="['card is-new-content', activeComposing ? 'is-highlighted' : '']">
         <div class="tabs-wrapper">
             <div class="tabs is-boxed is-fullwidth">
                 <ul>
@@ -44,6 +44,7 @@
                 <div class="more-wrap">
                     <button
                     type="button"
+                    @click="writePost"
                     :class="['button is-solid accent-button is-fullwidth', !publishButton ? 'is-disabled': '']">
                         Publish
                     </button>
@@ -66,7 +67,10 @@ export default {
         }
     },
     computed: {
-        publishButton() {
+        isAuth: function () {
+            return this.$store.state.isAuth;
+        },
+        publishButton: function () {
             if (this.form.message) {
                 return true;
             }
@@ -82,6 +86,13 @@ export default {
         deActivateComposing() {
             this.activeComposing = false;
             EventBus.$emit('deActivateComposing');
+        },
+        writePost() {
+            axios.post('/post', this.form)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => console.log(err.response.data));
         }
     }
 }
