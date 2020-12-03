@@ -149,7 +149,8 @@ export default {
             .then(res => {
                 this.clearError();
                 user.responseAfterLogin(res);
-                this.$router.push({name: 'home'});
+                // this.$router.push({name: 'home'});
+                window.location.href = '/';
             })
             .catch(err => this.error = err.response.data);
         }

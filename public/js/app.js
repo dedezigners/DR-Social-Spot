@@ -6873,11 +6873,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/auth/signup', this.form).then(function (res) {
         _this2.clearError();
 
-        user.responseAfterLogin(res);
+        user.responseAfterLogin(res); // this.$router.push({name: 'home'});
 
-        _this2.$router.push({
-          name: 'home'
-        });
+        window.location.href = '/';
       })["catch"](function (err) {
         return _this2.error = err.response.data;
       });
