@@ -25,6 +25,10 @@ export default {
             EventBus.$on('deActivateComposing', () => {
                 this.overlay = false;
             });
+
+            if (user.loggedIn()) {
+                this.$store.commit('setUserAuth', true);
+            }
         }
     }
 }

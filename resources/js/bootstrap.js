@@ -15,10 +15,22 @@ try {
 
 window.axios = require('axios');
 
+// Interceptor for checking if user is loggedIn but unauthorized
+axios.interceptors.response.use (response => response,
+    error => {
+        if (error.response.status === 401 && user.loggedIn()) {
+            user.logout();
+        }
+        console.log("Loggout from interceptors");
+        console.log(error.response.data)
+        throw error;
+    }
+);
+
 const token = user.token();
 
-// axios.defaults.baseURL = 'http://social-media.live/api';
-axios.defaults.baseURL = 'https://social.dedezigners.com/api';
+axios.defaults.baseURL = 'http://social-media.live/api';
+// axios.defaults.baseURL = 'https://social.dedezigners.com/api';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';

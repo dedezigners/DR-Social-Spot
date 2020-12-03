@@ -89,8 +89,11 @@ export default {
         loginUser() {
             axios.post('/auth/login', this.form)
             .then(res => {
+                console.log('login');
                 user.responseAfterLogin(res);
-                this.$router.push({name: 'home'});
+                // this.$store.commit('setUserAuth', true);
+                window.location.href = '/';
+                // this.$router.push({name: 'home'});
             })
             .catch(err => this.error = err.response.data.message);
         }

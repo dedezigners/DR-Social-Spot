@@ -1936,6 +1936,10 @@ __webpack_require__.r(__webpack_exports__);
       EventBus.$on('deActivateComposing', function () {
         _this.overlay = false;
       });
+
+      if (user.loggedIn()) {
+        this.$store.commit('setUserAuth', true);
+      }
     }
   }
 });
@@ -2135,18 +2139,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Header',
+  name: 'AppHeader',
   data: function data() {
     return {
-      enableDropdown: false,
-      isAuthenticate: user.loggedIn()
+      enableDropdown: false
     };
+  },
+  computed: {
+    isAuth: function isAuth() {
+      return user.loggedIn(); // return this.$store.state.isAuth;
+    }
   },
   methods: {
     logout: function logout() {
       axios.post('auth/logout');
-      user.logout();
-      this.isAuthenticate = false;
+      user.logout(); // this.$store.commit('setUserAuth', false);
+
+      window.location.href = '/';
     }
   }
 });
@@ -2302,11 +2311,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post('/auth/login', this.form).then(function (res) {
-        user.responseAfterLogin(res);
+        console.log('login');
+        user.responseAfterLogin(res); // this.$store.commit('setUserAuth', true);
 
-        _this.$router.push({
-          name: 'home'
-        });
+        window.location.href = '/'; // this.$router.push({name: 'home'});
       })["catch"](function (err) {
         return _this.error = err.response.data.message;
       });
@@ -43928,7 +43936,7 @@ var render = function() {
               ? undefined
               : _vm._e(),
             _vm._v(" "),
-            !_vm.isAuthenticate
+            !_vm.isAuth
               ? _c(
                   "div",
                   { staticClass: "navbar-item" },
@@ -43959,9 +43967,7 @@ var render = function() {
               : _c(
                   "div",
                   {
-                    staticClass:
-                      "navbar-item is-account drop-trigger has-caret",
-                    attrs: { id: "account-dropdown" }
+                    staticClass: "navbar-item is-account drop-trigger has-caret"
                   },
                   [
                     _c(
@@ -44152,7 +44158,7 @@ var render = function() {
                                       1
                                     ),
                                     _vm._v(" "),
-                                    _vm._m(2)
+                                    _vm._m(1)
                                   ])
                                 ]
                               )
@@ -44165,7 +44171,7 @@ var render = function() {
                   ]
                 ),
             _vm._v(" "),
-            _vm._m(3)
+            _vm._m(2)
           ])
         ])
       ])
@@ -44173,16 +44179,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "reset-search", attrs: { id: "clear-search" } },
-      [_c("i", { attrs: { "data-feather": "x" } })]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -71408,10 +71404,22 @@ try {
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-var token = user.token(); // axios.defaults.baseURL = 'http://social-media.live/api';
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // Interceptor for checking if user is loggedIn but unauthorized
 
-axios.defaults.baseURL = 'https://social.dedezigners.com/api';
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 401 && user.loggedIn()) {
+    user.logout();
+  }
+
+  console.log("Loggout from interceptors");
+  console.log(error.response.data);
+  throw error;
+});
+var token = user.token();
+axios.defaults.baseURL = 'http://social-media.live/api'; // axios.defaults.baseURL = 'https://social.dedezigners.com/api';
+
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -72710,37 +72718,50 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
-/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Home */ "./resources/js/components/Home.vue");
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_Signup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Signup */ "./resources/js/components/Signup.vue");
-/* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Profile */ "./resources/js/components/Profile.vue");
-/* harmony import */ var _components_Setting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Setting */ "./resources/js/components/Setting.vue");
-// Pages
+/* harmony import */ var _helpers_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/user */ "./resources/js/helpers/user.js");
+/* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Home */ "./resources/js/components/Home.vue");
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_Signup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Signup */ "./resources/js/components/Signup.vue");
+/* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Profile */ "./resources/js/components/Profile.vue");
+/* harmony import */ var _components_Setting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Setting */ "./resources/js/components/Setting.vue");
+// User Helper class
+ // Pages
 
 
 
 
+
+
+
+function requireAuth(to, from, next) {
+  var auth = _helpers_user__WEBPACK_IMPORTED_MODULE_0__["default"].loggedIn();
+  return !auth && next({
+    name: 'login'
+  }) || next();
+}
 
 var routes = [{
   path: '/',
   name: 'home',
-  component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
+  component: _components_Home__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/login',
   name: 'login',
-  component: _components_Login__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _components_Login__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/signup',
   name: 'signup',
-  component: _components_Signup__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _components_Signup__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   path: '/profile',
   name: 'profile',
-  component: _components_Profile__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _components_Profile__WEBPACK_IMPORTED_MODULE_4__["default"],
+  beforeEnter: requireAuth
 }, {
   path: '/settings',
   name: 'settings',
-  component: _components_Setting__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_Setting__WEBPACK_IMPORTED_MODULE_5__["default"],
+  beforeEnter: requireAuth
 }];
 
 /***/ }),
@@ -72754,7 +72775,15 @@ var routes = [{
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  getAuthentiacteUser: function getAuthentiacteUser(_ref) {// axios.get('/user-info')
+    // .then(res => {
+    //     console.log(res.data.data);
+    // });
+
+    var commit = _ref.commit;
+  }
+});
 
 /***/ }),
 
@@ -72814,7 +72843,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  setUserAuth: function setUserAuth(state, value) {
+    state.isAuth = value;
+  }
+});
 
 /***/ }),
 
@@ -72827,7 +72860,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  isAuth: false,
+  authUser: []
+});
 
 /***/ }),
 

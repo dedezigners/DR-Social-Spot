@@ -13,7 +13,7 @@
                         <div id="global-search" class="control">
                             <input id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
                             <span id="clear-search" class="reset-search">
-                                <i data-feather="x"></i>
+                                <load-svg feather="x" />
                             </span>
                             <span class="search-icon">
                                 <load-svg feather="search" />
@@ -70,14 +70,14 @@
 
                     </div>
 
-                    <div v-if="!isAuthenticate" class="navbar-item">
+                    <div v-if="!isAuth" class="navbar-item">
                         <div class="navbar-item">
                             <router-link to="/login">Login</router-link>
                         </div>
                         <router-link to="/signup" class="button is-cta is-solid primary-button raised">Sign Up</router-link>
                     </div>
 
-                    <div v-else id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
+                    <div v-else class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image" @click="enableDropdown = true">
                             <img src="/assets/img/jenna.png" />
                             <span class="indicator"></span>
@@ -183,18 +183,24 @@
 
 <script>
 export default {
-    name: 'Header',
+    name: 'AppHeader',
     data() {
         return {
             enableDropdown: false,
-            isAuthenticate: user.loggedIn(), 
+        }
+    },
+    computed: {
+        isAuth: function() {
+            return user.loggedIn();
+            // return this.$store.state.isAuth;
         }
     },
     methods: {
         logout() {
             axios.post('auth/logout');
             user.logout();
-            this.isAuthenticate = false;
+            // this.$store.commit('setUserAuth', false);
+            window.location.href = '/';
         }
     }
 }
