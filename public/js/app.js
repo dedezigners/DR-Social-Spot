@@ -2111,36 +2111,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'AppHeader',
   data: function data() {
@@ -7450,9 +7420,18 @@ __webpack_require__.r(__webpack_exports__);
       this.activeComposing = false;
       EventBus.$emit('deActivateComposing');
     },
+    cleanComposing: function cleanComposing() {
+      this.form.message = '';
+    },
     writePost: function writePost() {
+      var _this = this;
+
       axios.post('/post', this.form).then(function (res) {
-        console.log(res.data);
+        _this.cleanComposing();
+
+        _this.deActivateComposing();
+
+        _this.$store.dispatch('saveLatestPost', res.data.data);
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
@@ -7511,8 +7490,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _comments_Comments__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../comments/Comments */ "./resources/js/components/widgets/comments/Comments.vue");
-//
-//
 //
 //
 //
@@ -44039,7 +44016,9 @@ var render = function() {
                         }
                       },
                       [
-                        _c("img", { attrs: { src: "/assets/img/jenna.png" } }),
+                        _c("img", {
+                          attrs: { src: "https://via.placeholder.com/300x300" }
+                        }),
                         _vm._v(" "),
                         _c("span", { staticClass: "indicator" })
                       ]
@@ -44097,7 +44076,8 @@ var render = function() {
                                       _c("div", { staticClass: "image" }, [
                                         _c("img", {
                                           attrs: {
-                                            src: "/assets/img/jenna.png"
+                                            src:
+                                              "https://via.placeholder.com/300x300"
                                           }
                                         })
                                       ])
@@ -44227,9 +44207,7 @@ var render = function() {
                       ]
                     )
                   ]
-                ),
-            _vm._v(" "),
-            _vm._m(2)
+                )
           ])
         ])
       ])
@@ -44300,55 +44278,6 @@ var staticRenderFns = [
       _c("h3", [_vm._v("Log out")]),
       _vm._v(" "),
       _c("small", [_vm._v("Log out from your account.")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-item is-plus-menu is-hidden" }, [
-      _c(
-        "a",
-        {
-          staticClass: "button action-button is-solid primary-button raised",
-          attrs: { id: "plus-menu" }
-        },
-        [_c("i", { attrs: { "data-feather": "plus" } })]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "plus-drop" }, [
-        _c("div", { staticClass: "drop-content" }, [
-          _c("a", [
-            _c("i", { attrs: { "data-feather": "book" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "meta" }, [
-              _c("span", [_vm._v("Guides")]),
-              _vm._v(" "),
-              _c("span", [_vm._v("Learn everything fast")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("a", [
-            _c("i", { attrs: { "data-feather": "help-circle" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "meta" }, [
-              _c("span", [_vm._v("FAQ")]),
-              _vm._v(" "),
-              _c("span", [_vm._v("Most asked questions")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("a", [
-            _c("i", { attrs: { "data-feather": "life-buoy" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "meta" }, [
-              _c("span", [_vm._v("Assistance")]),
-              _vm._v(" "),
-              _c("span", [_vm._v("Get in touch with support")])
-            ])
-          ])
-        ])
-      ])
     ])
   }
 ]
@@ -44629,7 +44558,7 @@ var render = function() {
                 _c("div", { staticClass: "avatar" }, [
                   _c("img", {
                     staticClass: "avatar-image",
-                    attrs: { id: "user-avatar", src: "/assets/img/jenna.png" }
+                    attrs: { src: "https://via.placeholder.com/300x300" }
                   }),
                   _vm._v(" "),
                   _c(
@@ -52497,12 +52426,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "avatar-wrap" }, [
             _c("img", {
-              attrs: {
-                src: "/assets/img/jenna.png",
-                "data-demo-src": "assets/img/avatars/jenna.png",
-                "data-user-popover": "0",
-                alt: ""
-              }
+              attrs: { src: "https://via.placeholder.com/300x300" }
             }),
             _vm._v(" "),
             _c(
@@ -54608,7 +54532,9 @@ var render = function() {
             _c("div", { staticClass: "tab-content" }, [
               _c("div", { staticClass: "compose" }, [
                 _c("div", { staticClass: "compose-form" }, [
-                  _c("img", { attrs: { src: "/assets/img/jenna.png" } }),
+                  _c("img", {
+                    attrs: { src: "https://via.placeholder.com/300x300" }
+                  }),
                   _vm._v(" "),
                   _c("div", { staticClass: "control" }, [
                     _c("textarea", {
@@ -54776,7 +54702,9 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "user-info" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Dan Walker")]),
+              _c("a", { attrs: { href: "#" } }, [
+                _vm._v(_vm._s(_vm.post.name))
+              ]),
               _vm._v(" "),
               _c("span", { staticClass: "time" }, [
                 _vm._v(_vm._s(_vm.post.created_at))
@@ -54859,41 +54787,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "likers-group" }, [
-      _c("img", {
-        attrs: {
-          src: "https://via.placeholder.com/300x300",
-          "data-demo-src": "assets/img/avatars/dan.jpg",
-          "data-user-popover": "1",
-          alt: ""
-        }
-      }),
+      _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } }),
       _vm._v(" "),
-      _c("img", {
-        attrs: {
-          src: "https://via.placeholder.com/300x300",
-          "data-demo-src": "assets/img/avatars/david.jpg",
-          "data-user-popover": "4",
-          alt: ""
-        }
-      }),
-      _vm._v(" "),
-      _c("img", {
-        attrs: {
-          src: "https://via.placeholder.com/300x300",
-          "data-demo-src": "assets/img/avatars/edward.jpeg",
-          "data-user-popover": "5",
-          alt: ""
-        }
-      }),
-      _vm._v(" "),
-      _c("img", {
-        attrs: {
-          src: "https://via.placeholder.com/300x300",
-          "data-demo-src": "assets/img/avatars/milly.jpg",
-          "data-user-popover": "7",
-          alt: ""
-        }
-      })
+      _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } })
     ])
   },
   function() {
@@ -73008,6 +72904,10 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/posts').then(function (res) {
       commit('saveInitialPosts', res.data.data);
     });
+  },
+  saveLatestPost: function saveLatestPost(_ref3, payload) {
+    var commit = _ref3.commit;
+    commit('addLatestPost', payload);
   }
 });
 
@@ -73078,6 +72978,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   saveInitialPosts: function saveInitialPosts(state, payload) {
     state.posts = payload;
+  },
+  addLatestPost: function addLatestPost(state, payload) {
+    state.posts.unshift(payload);
   }
 });
 

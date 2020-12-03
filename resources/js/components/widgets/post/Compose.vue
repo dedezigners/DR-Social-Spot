@@ -21,7 +21,7 @@
             <div class="tab-content">
                 <div class="compose">
                     <div class="compose-form">
-                        <img src="/assets/img/jenna.png" />
+                        <img src="https://via.placeholder.com/300x300" />
                         <div class="control">
                             <textarea
                             class="textarea"
@@ -87,10 +87,15 @@ export default {
             this.activeComposing = false;
             EventBus.$emit('deActivateComposing');
         },
+        cleanComposing() {
+            this.form.message = '';
+        },
         writePost() {
             axios.post('/post', this.form)
             .then(res => {
-                console.log(res.data);
+                this.cleanComposing();
+                this.deActivateComposing();
+                this.$store.dispatch('saveLatestPost', res.data.data);
             })
             .catch(err => console.log(err.response.data));
         }

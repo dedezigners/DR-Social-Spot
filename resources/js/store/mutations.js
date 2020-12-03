@@ -7,5 +7,8 @@ export default {
     },
     saveInitialPosts(state, payload) {
         state.posts = payload;
+    },
+    addLatestPost(state, payload) {
+        state.posts.unshift(payload);
     }
 };

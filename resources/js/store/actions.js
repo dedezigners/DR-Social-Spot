@@ -10,5 +10,8 @@ export default {
         .then(res => {
             commit('saveInitialPosts', res.data.data);
         });
-    }
+    },
+    saveLatestPost({ commit }, payload) {
+        commit('addLatestPost', payload);
+    },
 };

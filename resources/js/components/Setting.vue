@@ -8,7 +8,7 @@
                         <load-svg feather="x" />
                     </a>
                     <div class="avatar-wrap">
-                        <img src="/assets/img/jenna.png" data-demo-src="assets/img/avatars/jenna.png" data-user-popover="0" alt="">
+                        <img src="https://via.placeholder.com/300x300" />
                         <div class="badge">
                             <load-svg feather="check" />
                         </div>

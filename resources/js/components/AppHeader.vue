@@ -79,7 +79,7 @@
 
                     <div v-else class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image" @click="enableDropdown = true">
-                            <img src="/assets/img/jenna.png" />
+                            <img src="https://via.placeholder.com/300x300" />
                             <span class="indicator"></span>
                         </div>
 
@@ -94,7 +94,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
-                                                    <img src="/assets/img/jenna.png" />
+                                                    <img src="https://via.placeholder.com/300x300" />
                                                 </div>
                                             </div>
                                             <div class="media-content">
@@ -141,36 +141,6 @@
                                         </div>
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="navbar-item is-plus-menu is-hidden">
-                        <a id="plus-menu" class="button action-button is-solid primary-button raised">
-                            <i data-feather="plus"></i>
-                        </a>
-                        <div class="plus-drop">
-                            <div class="drop-content">
-                                <a>
-                                    <i data-feather="book"></i>
-                                    <div class="meta">
-                                        <span>Guides</span>
-                                        <span>Learn everything fast</span>
-                                    </div>
-                                </a>
-                                <a>
-                                    <i data-feather="help-circle"></i>
-                                    <div class="meta">
-                                        <span>FAQ</span>
-                                        <span>Most asked questions</span>
-                                    </div>
-                                </a>
-                                <a>
-                                    <i data-feather="life-buoy"></i>
-                                    <div class="meta">
-                                        <span>Assistance</span>
-                                        <span>Get in touch with support</span>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                     </div>

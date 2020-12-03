@@ -13,7 +13,7 @@
                         <div class="cover-bg">
                             <img class="cover-image" src="/assets/img/demo/bg/4.png" />
                             <div class="avatar">
-                                <img id="user-avatar" class="avatar-image" src="/assets/img/jenna.png" />
+                                <img class="avatar-image" src="https://via.placeholder.com/300x300" />
                                 <div class="avatar-button">
                                     <load-svg feather="plus"/>
                                 </div>

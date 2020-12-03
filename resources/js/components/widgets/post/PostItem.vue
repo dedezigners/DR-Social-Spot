@@ -8,7 +8,7 @@
                         <img src="https://via.placeholder.com/300x300" />
                     </div>
                     <div class="user-info">
-                        <a href="#">Dan Walker</a>
+                        <a href="#">{{ post.name }}</a>
                         <span class="time">{{ post.created_at }}</span>
                     </div>
                 </div>
@@ -25,10 +25,8 @@
             <div class="card-footer">
                 
                 <div class="likers-group">
-                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="">
-                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" data-user-popover="4" alt="">
-                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" data-user-popover="5" alt="">
-                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" data-user-popover="7" alt="">
+                    <img src="https://via.placeholder.com/300x300" />
+                    <img src="https://via.placeholder.com/300x300" />
                 </div>
                 
                 <div class="likers-text">

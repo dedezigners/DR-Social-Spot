@@ -11,7 +11,7 @@ class Post extends Model
     use SoftDeletes;
     
     protected $fillable = [
-        'post', 'image', 'user_id'
+        'post', 'type', 'image', 'user_id'
     ];
 
     /**
@@ -19,7 +19,7 @@ class Post extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function comments()

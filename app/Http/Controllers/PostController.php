@@ -20,9 +20,10 @@ class PostController extends Controller
         ]);
 
         $post = auth()->user()->posts()->create([
+            'type' => 'text',
             'post' => $request->get('message')
         ]);
 
-        return response()->json($post, 200);
+        return new PostResource($post);
     }
 }
