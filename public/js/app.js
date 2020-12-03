@@ -71462,9 +71462,9 @@ axios.interceptors.response.use(function (response) {
   console.log("Loggout from interceptors");
   throw error;
 });
-var token = user.token();
-axios.defaults.baseURL = 'http://social-media.live/api'; // axios.defaults.baseURL = 'https://social.dedezigners.com/api';
+var token = user.token(); // axios.defaults.baseURL = 'http://social-media.live/api';
 
+axios.defaults.baseURL = 'https://social.dedezigners.com/api';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
