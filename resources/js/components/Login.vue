@@ -79,8 +79,8 @@ export default {
     data() {
         return {
             form: {
-                email: 'atif@dede.com',
-                password: 'password'
+                email: '',
+                password: ''
             },
             error: ""
         }

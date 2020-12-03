@@ -2279,8 +2279,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        email: 'atif@dede.com',
-        password: 'password'
+        email: '',
+        password: ''
       },
       error: ""
     };
@@ -6833,13 +6833,13 @@ __webpack_require__.r(__webpack_exports__);
     return {
       step: 0,
       form: {
-        first_name: 'Elise',
-        last_name: 'Walker',
-        username: 'elise',
-        email: 'elise@dede.com',
-        password: 'password',
-        password_confirmation: 'password',
-        phone: '+923024698165'
+        first_name: '',
+        last_name: '',
+        username: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        phone: ''
       },
       backButton: false,
       error: {
