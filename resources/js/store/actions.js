@@ -1,8 +1,8 @@
 export default {
-    getAuthentiacteUser({ commit }) {
-        // axios.get('/user-info')
-        // .then(res => {
-        //     console.log(res.data.data);
-        // });
+    getAuthentiactedUser({ commit }) {
+        axios.get('/user-info')
+        .then(res => {
+            commit('saveUserinfo', res.data.data);
+        });
     }
 };

@@ -1,4 +1,4 @@
 export default {
     isAuth: false,
-    authUser: []
+    userinfo: null
 };

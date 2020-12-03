@@ -1938,7 +1938,8 @@ __webpack_require__.r(__webpack_exports__);
       });
 
       if (user.loggedIn()) {
-        this.$store.commit('setUserAuth', true);
+        this.$store.commit('setUserAuth', true); // temp disabled
+        // this.$store.dispatch('getAuthentiactedUser');
       }
     }
   }
@@ -6669,7 +6670,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var SECTIONS = Object.freeze({
   GENERAL: 'GENERAL',
   SECURITY: 'SECURITY',
@@ -6681,7 +6681,23 @@ var SECTIONS = Object.freeze({
     return {
       SECTIONS: SECTIONS,
       activeSecton: SECTIONS.GENERAL,
-      generalForm: [],
+      form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        backup_email: '',
+        address: '',
+        city: '',
+        postal_code: '',
+        state: '',
+        country: '',
+        phone: ''
+      },
+      secure: {
+        current_password: '',
+        new_password: '',
+        repeat_password: ''
+      },
       message: '',
       className: 'error'
     };
@@ -6694,7 +6710,7 @@ var SECTIONS = Object.freeze({
       var _this = this;
 
       axios.get('/user-info').then(function (res) {
-        return _this.generalForm = res.data.data;
+        return _this.form = res.data.data;
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
@@ -6702,7 +6718,7 @@ var SECTIONS = Object.freeze({
     updateUser: function updateUser() {
       var _this2 = this;
 
-      axios.post('/user', this.generalForm).then(function (res) {
+      axios.post('/user', this.form).then(function (res) {
         _this2.message = res.data.message;
         _this2.className = 'success';
       })["catch"](function (err) {
@@ -52594,20 +52610,20 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.first_name,
-                              expression: "generalForm.first_name"
+                              value: _vm.form.first_name,
+                              expression: "form.first_name"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.first_name },
+                          domProps: { value: _vm.form.first_name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.generalForm,
+                                _vm.form,
                                 "first_name",
                                 $event.target.value
                               )
@@ -52633,23 +52649,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.email,
-                              expression: "generalForm.email"
+                              value: _vm.form.email,
+                              expression: "form.email"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.email },
+                          domProps: { value: _vm.form.email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.generalForm,
-                                "email",
-                                $event.target.value
-                              )
+                              _vm.$set(_vm.form, "email", $event.target.value)
                             }
                           }
                         }),
@@ -52674,20 +52686,20 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.last_name,
-                              expression: "generalForm.last_name"
+                              value: _vm.form.last_name,
+                              expression: "form.last_name"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.last_name },
+                          domProps: { value: _vm.form.last_name },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.generalForm,
+                                _vm.form,
                                 "last_name",
                                 $event.target.value
                               )
@@ -52713,20 +52725,20 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.backup_email,
-                              expression: "generalForm.backup_email"
+                              value: _vm.form.backup_email,
+                              expression: "form.backup_email"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.backup_email },
+                          domProps: { value: _vm.form.backup_email },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.generalForm,
+                                _vm.form,
                                 "backup_email",
                                 $event.target.value
                               )
@@ -52754,8 +52766,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.address,
-                              expression: "generalForm.address"
+                              value: _vm.form.address,
+                              expression: "form.address"
                             }
                           ],
                           staticClass: "textarea is-fade",
@@ -52764,17 +52776,13 @@ var render = function() {
                             rows: "1",
                             placeholder: "Fill in your address..."
                           },
-                          domProps: { value: _vm.generalForm.address },
+                          domProps: { value: _vm.form.address },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.generalForm,
-                                "address",
-                                $event.target.value
-                              )
+                              _vm.$set(_vm.form, "address", $event.target.value)
                             }
                           }
                         })
@@ -52794,23 +52802,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.city,
-                              expression: "generalForm.city"
+                              value: _vm.form.city,
+                              expression: "form.city"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.city },
+                          domProps: { value: _vm.form.city },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.generalForm,
-                                "city",
-                                $event.target.value
-                              )
+                              _vm.$set(_vm.form, "city", $event.target.value)
                             }
                           }
                         }),
@@ -52835,20 +52839,20 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.postal_code,
-                              expression: "generalForm.postal_code"
+                              value: _vm.form.postal_code,
+                              expression: "form.postal_code"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.postal_code },
+                          domProps: { value: _vm.form.postal_code },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
                               _vm.$set(
-                                _vm.generalForm,
+                                _vm.form,
                                 "postal_code",
                                 $event.target.value
                               )
@@ -52876,23 +52880,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.generalForm.state,
-                              expression: "generalForm.state"
+                              value: _vm.form.state,
+                              expression: "form.state"
                             }
                           ],
                           staticClass: "input is-fade",
                           attrs: { type: "text" },
-                          domProps: { value: _vm.generalForm.state },
+                          domProps: { value: _vm.form.state },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.generalForm,
-                                "state",
-                                $event.target.value
-                              )
+                              _vm.$set(_vm.form, "state", $event.target.value)
                             }
                           }
                         }),
@@ -52920,20 +52920,20 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.generalForm.country,
-                                expression: "generalForm.country"
+                                value: _vm.form.country,
+                                expression: "form.country"
                               }
                             ],
                             staticClass: "input is-fade",
                             attrs: { id: "country-autocpl", type: "text" },
-                            domProps: { value: _vm.generalForm.country },
+                            domProps: { value: _vm.form.country },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
                                 _vm.$set(
-                                  _vm.generalForm,
+                                  _vm.form,
                                   "country",
                                   $event.target.value
                                 )
@@ -52952,6 +52952,49 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "column is-6" }, [
+                    _c("div", { staticClass: "field field-group" }, [
+                      _c("label", [_vm._v("Phone Number")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control has-icon" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.phone,
+                              expression: "form.phone"
+                            }
+                          ],
+                          staticClass: "input is-fade",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.form.phone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "phone", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-icon" },
+                          [
+                            _c("load-svg", { attrs: { feather: "smartphone" } })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c("div", { staticClass: "column is-12" }, [
                     _c("div", { staticClass: "buttons" }, [
                       _c(
@@ -52968,7 +53011,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _vm._m(3)
             ])
           ])
         ]
@@ -53005,8 +53048,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.secure.current_password,
+                              expression: "secure.current_password"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "password", value: "testpassword" }
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.secure.current_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.secure,
+                                "current_password",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -53025,8 +53089,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.secure.new_password,
+                              expression: "secure.new_password"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "password", value: "" }
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.secure.new_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.secure,
+                                "new_password",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -53045,40 +53130,35 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "control has-icon" }, [
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.secure.confirmed_password,
+                              expression: "secure.confirmed_password"
+                            }
+                          ],
                           staticClass: "input is-fade",
-                          attrs: { type: "password", value: "" }
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.secure.confirmed_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.secure,
+                                "confirmed_password",
+                                $event.target.value
+                              )
+                            }
+                          }
                         }),
                         _vm._v(" "),
                         _c(
                           "div",
                           { staticClass: "form-icon" },
                           [_c("load-svg", { attrs: { feather: "lock" } })],
-                          1
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "column is-6" }, [
-                    _c("div", { staticClass: "field field-group" }, [
-                      _c("label", [_vm._v("Phone Number")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "control has-icon" }, [
-                        _c("input", {
-                          staticClass: "input is-fade",
-                          attrs: { type: "text", value: "" }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-icon" },
-                          [
-                            _c("load-svg", { attrs: { feather: "smartphone" } })
-                          ],
                           1
                         )
                       ])
@@ -53320,24 +53400,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "illustration" }, [
-      _c("img", {
-        attrs: { src: "/assets/img/illustrations/settings/1.svg", alt: "" }
-      }),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "If you'd like to learn more about general settings, you can read about it in the "
-        ),
-        _c("a", [_vm._v("user guide")]),
-        _vm._v(".")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "column is-12" }, [
       _c("div", { staticClass: "form-text" }, [
         _c("p", [
@@ -53379,19 +53441,37 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column is-12" }, [
-      _c("div", { staticClass: "buttons" }, [
-        _c(
-          "button",
-          { staticClass: "button is-solid accent-button form-button" },
-          [_vm._v("Save Changes")]
+    return _c("div", { staticClass: "illustration" }, [
+      _c("img", {
+        attrs: { src: "/assets/img/illustrations/settings/1.svg", alt: "" }
+      }),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "If you'd like to learn more about general settings, you can read about it in the "
         ),
-        _vm._v(" "),
-        _c("button", { staticClass: "button is-light form-button" }, [
-          _vm._v("Advanced")
-        ])
+        _c("a", [_vm._v("user guide")]),
+        _vm._v(".")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "column is-12", staticStyle: { "margin-top": "115px" } },
+      [
+        _c("div", { staticClass: "buttons" }, [
+          _c(
+            "button",
+            { staticClass: "button is-solid accent-button form-button" },
+            [_vm._v("Update Password")]
+          )
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -72776,12 +72856,11 @@ var routes = [{
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  getAuthentiacteUser: function getAuthentiacteUser(_ref) {// axios.get('/user-info')
-    // .then(res => {
-    //     console.log(res.data.data);
-    // });
-
+  getAuthentiactedUser: function getAuthentiactedUser(_ref) {
     var commit = _ref.commit;
+    axios.get('/user-info').then(function (res) {
+      commit('saveUserinfo', res.data.data);
+    });
   }
 });
 
@@ -72846,6 +72925,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   setUserAuth: function setUserAuth(state, value) {
     state.isAuth = value;
+  },
+  saveUserinfo: function saveUserinfo(state, payload) {
+    state.userinfo = payload;
   }
 });
 
@@ -72862,7 +72944,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   isAuth: false,
-  authUser: []
+  userinfo: null
 });
 
 /***/ }),

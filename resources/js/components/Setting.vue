@@ -70,7 +70,7 @@
                                     <div class="field field-group">
                                         <label>First Name</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.first_name" />
+                                            <input type="text" class="input is-fade" v-model="form.first_name" />
                                             <div class="form-icon">
                                                 <load-svg feather="user" />
                                             </div>
@@ -80,7 +80,7 @@
                                     <div class="field field-group">
                                         <label>Email</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.email" />
+                                            <input type="text" class="input is-fade" v-model="form.email" />
                                             <div class="form-icon">
                                                 <load-svg feather="mail" />
                                             </div>
@@ -93,7 +93,7 @@
                                     <div class="field field-group">
                                         <label>Last Name</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.last_name" />
+                                            <input type="text" class="input is-fade" v-model="form.last_name" />
                                             <div class="form-icon">
                                                 <load-svg feather="user" />
                                             </div>
@@ -103,7 +103,7 @@
                                     <div class="field field-group">
                                         <label>Backup Email</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.backup_email" />
+                                            <input type="text" class="input is-fade" v-model="form.backup_email" />
                                             <div class="form-icon">
                                                 <load-svg feather="mail" />
                                             </div>
@@ -116,7 +116,7 @@
                                     <div class="field field-group">
                                         <label>Address</label>
                                         <div class="control">
-                                            <textarea type="text" class="textarea is-fade" rows="1" placeholder="Fill in your address..." v-model="generalForm.address"></textarea>
+                                            <textarea type="text" class="textarea is-fade" rows="1" placeholder="Fill in your address..." v-model="form.address"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                     <div class="field field-group">
                                         <label>City</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.city">
+                                            <input type="text" class="input is-fade" v-model="form.city">
                                             <div class="form-icon">
                                                 <load-svg feather="map-pin" />
                                             </div>
@@ -144,7 +144,7 @@
                                     <div class="field field-group">
                                         <label>Postal Code</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.postal_code">
+                                            <input type="text" class="input is-fade" v-model="form.postal_code">
                                             <div class="form-icon">
                                                 <load-svg feather="map-pin" />
                                             </div>
@@ -156,7 +156,7 @@
                                     <div class="field field-group">
                                         <label>State</label>
                                         <div class="control has-icon">
-                                            <input type="text" class="input is-fade" v-model="generalForm.state">
+                                            <input type="text" class="input is-fade" v-model="form.state">
                                             <div class="form-icon">
                                                 <load-svg feather="map-pin" />
                                             </div>
@@ -168,9 +168,45 @@
                                     <div class="field field-group is-autocomplete">
                                         <label>Country</label>
                                         <div class="control has-icon">
-                                            <input id="country-autocpl" type="text" class="input is-fade" v-model="generalForm.country" />
+                                            <input id="country-autocpl" type="text" class="input is-fade" v-model="form.country" />
                                             <div class="form-icon">
                                                 <load-svg feather="globe" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-12">
+                                    <!--Field-->
+                                    <div class="form-text">
+                                        <p>You can enable 2 factor authentication anytime to improve your account privacy and security.</p>
+                                    </div>
+                                </div>
+
+                                <div class="column is-6">
+                                    <!--Field-->
+                                    <div class="field">
+                                        <div class="switch-block">
+                                            <label class="f-switch is-accent">
+                                                <input type="checkbox" class="is-switch is-success">
+                                                <i></i>
+                                            </label>
+                                            <div class="meta">
+                                                <h4>Enable 2 factor auth</h4>
+                                                <p>This will send an additional code to your phone number.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-6">
+                                    <!--Field-->
+                                    <div class="field field-group">
+                                        <label>Phone Number</label>
+                                        <div class="control has-icon">
+                                            <input type="text" class="input is-fade" v-model="form.phone">
+                                            <div class="form-icon">
+                                                <load-svg feather="smartphone" />
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +251,7 @@
                                     <div class="field field-group">
                                         <label>Current Password</label>
                                         <div class="control has-icon">
-                                            <input type="password" class="input is-fade" value="testpassword">
+                                            <input type="password" class="input is-fade" v-model="secure.current_password" />
                                             <div class="form-icon">
                                                 <load-svg feather="lock" />
                                             </div>
@@ -228,7 +264,7 @@
                                     <div class="field field-group">
                                         <label>New Password</label>
                                         <div class="control has-icon">
-                                            <input type="password" class="input is-fade" value="">
+                                            <input type="password" class="input is-fade" v-model="secure.new_password" />
                                             <div class="form-icon">
                                                 <load-svg feather="lock" />
                                             </div>
@@ -241,7 +277,7 @@
                                     <div class="field field-group">
                                         <label>Repeat Password</label>
                                         <div class="control has-icon">
-                                            <input type="password" class="input is-fade" value="">
+                                            <input type="password" class="input is-fade" v-model="secure.confirmed_password" />
                                             <div class="form-icon">
                                                 <load-svg feather="lock" />
                                             </div>
@@ -249,46 +285,9 @@
                                     </div>
                                 </div>
 
-                                <div class="column is-12">
-                                    <!--Field-->
-                                    <div class="form-text">
-                                        <p>You can enable 2 factor authentication anytime to improve your account privacy and security.</p>
-                                    </div>
-                                </div>
-
-                                <div class="column is-6">
-                                    <!--Field-->
-                                    <div class="field">
-                                        <div class="switch-block">
-                                            <label class="f-switch is-accent">
-                                                <input type="checkbox" class="is-switch is-success">
-                                                <i></i>
-                                            </label>
-                                            <div class="meta">
-                                                <h4>Enable 2 factor auth</h4>
-                                                <p>This will send an additional code to your phone number.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="column is-6">
-                                    <!--Field-->
-                                    <div class="field field-group">
-                                        <label>Phone Number</label>
-                                        <div class="control has-icon">
-                                            <input type="text" class="input is-fade" value="">
-                                            <div class="form-icon">
-                                                <load-svg feather="smartphone" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="column is-12">
+                                <div class="column is-12" style="margin-top: 115px">
                                     <div class="buttons">
-                                        <button class="button is-solid accent-button form-button">Save Changes</button>
-                                        <button class="button is-light form-button">Advanced</button>
+                                        <button class="button is-solid accent-button form-button">Update Password</button>
                                     </div>
                                 </div>
                             </div>
@@ -451,7 +450,23 @@ export default {
         return {
             SECTIONS,
             activeSecton: SECTIONS.GENERAL,
-            generalForm: [],
+            form: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                backup_email: '',
+                address: '',
+                city: '',
+                postal_code: '',
+                state: '',
+                country: '',
+                phone: ''
+            },
+            secure: {
+                current_password: '',
+                new_password: '',
+                repeat_password: ''
+            },
             message: '',
             className: 'error'
         }
@@ -462,11 +477,11 @@ export default {
     methods: {
         init() {
             axios.get('/user-info')
-            .then(res => this.generalForm = res.data.data)
+            .then(res => this.form = res.data.data)
             .catch(err => console.log(err.response.data));
         },
         updateUser() {
-            axios.post('/user', this.generalForm)
+            axios.post('/user', this.form)
             .then(res => {
                 this.message = res.data.message
                 this.className = 'success';
