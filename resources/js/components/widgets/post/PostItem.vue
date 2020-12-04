@@ -9,7 +9,7 @@
                     </div>
                     <div class="user-info">
                         <a href="#">{{ post.name }}</a>
-                        <span class="time">{{ post.created_at }}</span>
+                        <span class="time">{{ post.createdAt }}</span>
                     </div>
                 </div>
             </div>
@@ -24,31 +24,28 @@
 
             <div class="card-footer">
                 
-                <div class="likers-group">
+                <div class="likers-group" v-if="false">
                     <img src="https://via.placeholder.com/300x300" />
                     <img src="https://via.placeholder.com/300x300" />
                 </div>
                 
                 <div class="likers-text">
-                    <p>
-                        <a href="#">Milly</a>,
-                        <a href="#">David</a>
-                    </p>
-                    <p>and 23 more liked this</p>
+                    <p v-html="likersUsers"></p>
+                    <p>{{ likersMessage }}</p>
                 </div>
 
                 <div class="social-count">
-                    <div class="likes-count">
-                        <load-svg feather="heart" />
-                        <span>0</span>
+                    <div class="comments-count">
+                        <load-svg feather="message-circle" />
+                        <span>{{ post.comments.length }}</span>
                     </div>
-                    <div class="shares-count">
+                    <div class="shares-count" v-if="false">
                         <load-svg feather="link-2" />
                         <span>0</span>
                     </div>
-                    <div class="comments-count">
-                        <load-svg feather="message-circle" />
-                        <span>0</span>
+                    <div class="likes-count">
+                        <load-svg feather="heart" />
+                        <span>{{ post.likes.length }}</span>
                     </div>
                 </div>
             </div>
@@ -72,6 +69,24 @@ export default {
             required: true
         }
     },
-    
+    data() {
+        return {
+            maxLikersName: 3,
+            maxLikersImage: 5,
+        }
+    },
+    computed: {
+        likersUsers: function() {
+            let text = "No Likes";
+            return `<a>${text}</a>`;
+        },
+        likersMessage: function() {
+            let text = 'Be the first to like it.';
+            if (this.post.likes.length > 0 && this.post.likes.length <= this.maxLikersName) text = "liked this";
+            else if (this.post.likes.length > this.maxLikersName) text = `and ${(this.post.likes.length - this.maxLikersName)} more liked this`;
+
+            return text;
+        }
+    },
 }
 </script>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\LikeResource;
+use App\Http\Resources\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PostResource extends JsonResource
@@ -20,7 +22,11 @@ class PostResource extends JsonResource
             'type' => $this->type,
             'post' => $this->post,
             'image' => null,
-            'created_at' => $this->created_at->diffForHumans()
+            'likesCount' => 8,
+            'commentsCount' => 12,
+            'likes' => LikeResource::collection($this->likes),
+            'comments' => CommentResource::collection($this->comments),
+            'createdAt' => $this->created_at->diffForHumans()
         ];
     }
 }

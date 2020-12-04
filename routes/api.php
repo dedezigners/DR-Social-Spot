@@ -39,4 +39,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/user', 'UserController@updateUser');
 
     Route::post('/post', 'PostController@store');
+    // Route::post('/posts/{post}/like', 'PostLikeController@like');
 });

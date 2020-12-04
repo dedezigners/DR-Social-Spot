@@ -7472,8 +7472,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'PostAction'
+  name: 'PostAction',
+  data: function data() {
+    return {
+      isLike: false
+    };
+  },
+  methods: {
+    likeDislike: function likeDislike() {
+      this.isLike = !this.isLike;
+
+      if (this.isLike) {
+        axios.post("/posts/1/like").then(function (res) {
+          console.log(res.data);
+        })["catch"](function (err) {
+          return console.log(err.response.data);
+        });
+      } else {
+        console.log('Dislike');
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -7545,9 +7567,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostItem',
@@ -7559,6 +7578,23 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": null,
       required: true
+    }
+  },
+  data: function data() {
+    return {
+      maxLikersName: 3,
+      maxLikersImage: 5
+    };
+  },
+  computed: {
+    likersUsers: function likersUsers() {
+      var text = "No Likes";
+      return "<a>".concat(text, "</a>");
+    },
+    likersMessage: function likersMessage() {
+      var text = 'Be the first to like it.';
+      if (this.post.likes.length > 0 && this.post.likes.length <= this.maxLikersName) text = "liked this";else if (this.post.likes.length > this.maxLikersName) text = "and ".concat(this.post.likes.length - this.maxLikersName, " more liked this");
+      return text;
     }
   }
 });
@@ -54629,19 +54665,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "post-actions" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "fab-wrapper is-share" }, [
+    _c("div", { staticClass: "like-wrapper" }, [
       _c(
         "a",
         {
-          staticClass: "small-fab share-fab modal-trigger",
-          attrs: { "data-modal": "share-modal" }
+          class: ["like-button", _vm.isLike ? "is-active" : ""],
+          on: { click: _vm.likeDislike }
         },
-        [_c("load-svg", { attrs: { feather: "link-2" } })],
-        1
+        [
+          _c("i", { staticClass: "mdi mdi-heart not-liked bouncy" }),
+          _vm._v(" "),
+          _c("i", { staticClass: "mdi mdi-heart is-liked bouncy" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "like-overlay" })
+        ]
       )
     ]),
+    _vm._v(" "),
+    false
+      ? undefined
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "fab-wrapper is-comment" }, [
       _c(
@@ -54653,22 +54696,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "like-wrapper" }, [
-      _c("a", { staticClass: "like-button" }, [
-        _c("i", { staticClass: "mdi mdi-heart not-liked bouncy" }),
-        _vm._v(" "),
-        _c("i", { staticClass: "mdi mdi-heart is-liked bouncy" }),
-        _vm._v(" "),
-        _c("span", { staticClass: "like-overlay" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54705,7 +54733,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "time" }, [
-                _vm._v(_vm._s(_vm.post.created_at))
+                _vm._v(_vm._s(_vm.post.createdAt))
               ])
             ])
           ])
@@ -54725,40 +54753,39 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card-footer" }, [
-          _vm._m(1),
+          false
+            ? undefined
+            : _vm._e(),
           _vm._v(" "),
-          _vm._m(2),
+          _c("div", { staticClass: "likers-text" }, [
+            _c("p", { domProps: { innerHTML: _vm._s(_vm.likersUsers) } }),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.likersMessage))])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "social-count" }, [
-            _c(
-              "div",
-              { staticClass: "likes-count" },
-              [
-                _c("load-svg", { attrs: { feather: "heart" } }),
-                _vm._v(" "),
-                _c("span", [_vm._v("0")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "shares-count" },
-              [
-                _c("load-svg", { attrs: { feather: "link-2" } }),
-                _vm._v(" "),
-                _c("span", [_vm._v("0")])
-              ],
-              1
-            ),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "comments-count" },
               [
                 _c("load-svg", { attrs: { feather: "message-circle" } }),
                 _vm._v(" "),
-                _c("span", [_vm._v("0")])
+                _c("span", [_vm._v(_vm._s(_vm.post.comments.length))])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            false
+              ? undefined
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "likes-count" },
+              [
+                _c("load-svg", { attrs: { feather: "heart" } }),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.post.likes.length))])
               ],
               1
             )
@@ -54778,30 +54805,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "image" }, [
       _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "likers-group" }, [
-      _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } }),
-      _vm._v(" "),
-      _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "likers-text" }, [
-      _c("p", [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Milly")]),
-        _vm._v(",\n                    "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("David")])
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v("and 23 more liked this")])
     ])
   }
 ]
