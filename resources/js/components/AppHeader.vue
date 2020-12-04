@@ -76,7 +76,6 @@
                         </div>
                         <router-link to="/signup" class="button is-cta is-solid primary-button raised">Sign Up</router-link>
                     </div>
-
                     <div v-else class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image" @click="enableDropdown = true">
                             <img src="https://via.placeholder.com/300x300" />

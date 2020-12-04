@@ -28,8 +28,7 @@ export default {
 
             if (user.loggedIn()) {
                 this.$store.commit('setUserAuth', true);
-                // temp disabled
-                // this.$store.dispatch('getAuthentiactedUser');
+                this.$store.dispatch('getAuthentiactedUser');
             }
 
             this.$store.dispatch('getInitialPosts');
