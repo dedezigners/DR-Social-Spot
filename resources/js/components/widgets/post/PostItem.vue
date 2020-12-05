@@ -22,10 +22,7 @@
             </div>
 
             <div class="card-footer">
-                <div class="likers-group" v-if="false">
-                    <img src="https://via.placeholder.com/300x300" />
-                    <img src="https://via.placeholder.com/300x300" />
-                </div>
+                <div class="likers-group" v-if="likersImages" v-html="likersImages"></div>
                 
                 <div class="likers-text">
                     <p v-html="likersUsers"></p>
@@ -82,6 +79,16 @@ export default {
             else if (this.post.likes.length > this.maxLikersName) text = `and ${(this.post.likes.length - this.maxLikersName)} more liked this`;
 
             return text;
+        },
+        likersImages: function() {
+            if (this.post.likes.length) {
+                let likersImages = this.post.likes.slice(0, this.maxLikersImage).map(liker => {
+                    return `<img src="${liker.user.avatar}" />`;
+                });
+
+                return likersImages.join('');
+            }
+            return false;
         },
         user: function() {
             return this.$store.state.user;

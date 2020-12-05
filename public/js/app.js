@@ -7635,9 +7635,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7677,6 +7674,16 @@ __webpack_require__.r(__webpack_exports__);
       var text = 'Be the first to like it.';
       if (this.post.likes.length > 0 && this.post.likes.length <= this.maxLikersName) text = "liked this";else if (this.post.likes.length > this.maxLikersName) text = "and ".concat(this.post.likes.length - this.maxLikersName, " more liked this");
       return text;
+    },
+    likersImages: function likersImages() {
+      if (this.post.likes.length) {
+        var likersImages = this.post.likes.slice(0, this.maxLikersImage).map(function (liker) {
+          return "<img src=\"".concat(liker.user.avatar, "\" />");
+        });
+        return likersImages.join('');
+      }
+
+      return false;
     },
     user: function user() {
       return this.$store.state.user;
@@ -54985,8 +54992,11 @@ var render = function() {
           "div",
           { staticClass: "card-footer" },
           [
-            false
-              ? undefined
+            _vm.likersImages
+              ? _c("div", {
+                  staticClass: "likers-group",
+                  domProps: { innerHTML: _vm._s(_vm.likersImages) }
+                })
               : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "likers-text" }, [
