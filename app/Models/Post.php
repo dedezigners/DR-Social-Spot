@@ -24,11 +24,11 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(PostComment::class);
+        return $this->hasMany(PostComment::class)->latest();
     }
 
     public function likes()
     {
-        return $this->hasMany(PostLike::class);
+        return $this->hasMany(PostLike::class)->latest();
     }
 }
