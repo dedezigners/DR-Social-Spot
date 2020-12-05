@@ -68,6 +68,16 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+    
+    public function getAvatarAttribute()
+    {
+        return 'https://via.placeholder.com/300x300';
+    }
+    
+    public function getProfileAttribute()
+    {
+        return '#!';
+    }
 
     /**
      * Relations

@@ -16,17 +16,19 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'avatar' => 'https://via.placeholder.com/300x300',
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'backup_email' => $this->backup_email,
-            'address' => $this->address,
-            'city' => $this->city,
-            'state' => $this->state,
-            'postal_code' => $this->postal_code,
-            'country' => $this->country,
-            'phone' => $this->phone
+            'avatar' => $this->avatar,
+            'name' => $this->name,
+            'profile' => $this->profile,
+            'firstName' => $this->first_name,
+            'lastName' => $this->last_name,
+            // 'email' => $this->email,
+            // 'backupEmail' => $this->backup_email,
+            // 'address' => $this->address,
+            // 'city' => $this->city,
+            // 'state' => $this->state,
+            // 'postal_code' => $this->postal_code,
+            // 'country' => $this->country,
+            // 'phone' => $this->phone
         ];
     }
 }

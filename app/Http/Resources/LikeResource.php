@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LikeResource extends JsonResource
@@ -14,6 +15,9 @@ class LikeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'userId' => $this->user_id,
+            'user' => new UserResource($this->user)
+        ];
     }
 }

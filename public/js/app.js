@@ -7661,21 +7661,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     likersUsers: function likersUsers() {
-      var text = "No Likes";
-      return "<a>".concat(text, "</a>");
+      var likers = ['<a>No Likes</a>'];
+
+      if (this.post.likes.length) {
+        likers = this.post.likes.slice(0, this.maxLikersName).map(function (liker) {
+          // let name = liker.user.id === this.$store.getters.userId ? 'You' : liker.user.firstName;
+          var name = liker.user.firstName;
+          return "<a href=\"".concat(liker.user.profile, "\">").concat(name, "</a>");
+        });
+      }
+
+      return likers.join(', ');
     },
     likersMessage: function likersMessage() {
       var text = 'Be the first to like it.';
       if (this.post.likes.length > 0 && this.post.likes.length <= this.maxLikersName) text = "liked this";else if (this.post.likes.length > this.maxLikersName) text = "and ".concat(this.post.likes.length - this.maxLikersName, " more liked this");
       return text;
     },
+    user: function user() {
+      return this.$store.state.user;
+    },
     isLike: function isLike() {
       var _this = this;
 
       if (this.$store.state.isAuth && this.$store.getters.userId) {
-        return this.post.likes.find(function (liker) {
-          return liker.user_id === _this.$store.getters.userId;
-        }) ? true : false;
+        return this.post.likes.some(function (liker) {
+          return liker.userId === _this.$store.getters.userId;
+        });
       }
 
       return false;
@@ -73456,7 +73468,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   userId: function userId(state) {
-    return state.userinfo.id;
+    return state.user.id;
   }
 });
 
@@ -73510,7 +73522,7 @@ __webpack_require__.r(__webpack_exports__);
     state.isAuth = value;
   },
   saveUserinfo: function saveUserinfo(state, payload) {
-    state.userinfo = payload;
+    state.user = payload;
   },
   saveInitialPosts: function saveInitialPosts(state, payload) {
     state.posts = payload;
@@ -73533,7 +73545,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   isAuth: false,
-  userinfo: null,
+  user: [],
   posts: []
 });
 

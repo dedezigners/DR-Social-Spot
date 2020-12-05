@@ -64,8 +64,17 @@ export default {
     },
     computed: {
         likersUsers: function() {
-            let text = "No Likes";
-            return `<a>${text}</a>`;
+            let likers = ['<a>No Likes</a>'];
+
+            if (this.post.likes.length) {
+                likers = this.post.likes.slice(0, this.maxLikersName).map(liker => {
+                    // let name = liker.user.id === this.$store.getters.userId ? 'You' : liker.user.firstName;
+                    let name = liker.user.firstName;
+                    return `<a href="${liker.user.profile}">${name}</a>`;
+                });
+            }
+                
+            return likers.join(', ');
         },
         likersMessage: function() {
             let text = 'Be the first to like it.';
@@ -74,9 +83,12 @@ export default {
 
             return text;
         },
+        user: function() {
+            return this.$store.state.user;
+        },
         isLike: function() {
             if (this.$store.state.isAuth && this.$store.getters.userId) {
-                return this.post.likes.find(liker => liker.user_id === this.$store.getters.userId) ? true : false;
+                return this.post.likes.some(liker => liker.userId === this.$store.getters.userId);
             }
             return false;
         }

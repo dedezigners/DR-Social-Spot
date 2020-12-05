@@ -3,7 +3,7 @@ export default {
         state.isAuth = value;
     },
     saveUserinfo(state, payload) {
-        state.userinfo = payload;
+        state.user = payload;
     },
     saveInitialPosts(state, payload) {
         state.posts = payload;

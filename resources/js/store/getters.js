@@ -1,5 +1,5 @@
 export default {
     userId(state) {
-        return state.userinfo.id;
+        return state.user.id;
     }
 };

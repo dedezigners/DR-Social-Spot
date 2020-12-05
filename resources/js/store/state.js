@@ -1,5 +1,5 @@
 export default {
     isAuth: false,
-    userinfo: null,
+    user: [],
     posts: [],
 };
