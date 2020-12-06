@@ -2120,6 +2120,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isAuth: function isAuth() {
       return user.loggedIn(); // return this.$store.state.isAuth;
+    },
+    user: function user() {
+      return this.$store.getters.authUser;
     }
   },
   methods: {
@@ -6661,51 +6664,39 @@ var SECTIONS = Object.freeze({
     return {
       SECTIONS: SECTIONS,
       activeSecton: SECTIONS.GENERAL,
-      form: {
-        first_name: '',
-        last_name: '',
-        email: '',
-        backup_email: '',
-        address: '',
-        city: '',
-        postal_code: '',
-        state: '',
-        country: '',
-        phone: ''
-      },
       secure: {
         current_password: '',
         new_password: '',
         repeat_password: ''
       },
+      form: [],
       message: '',
       className: 'error'
     };
+  },
+  computed: {
+    user: function user() {
+      return this.$store.getters.authUser;
+    }
   },
   mounted: function mounted() {
     this.init();
   },
   methods: {
-    init: function init() {
-      var _this = this;
-
-      axios.get('/user-info').then(function (res) {
-        return _this.form = res.data.data;
-      })["catch"](function (err) {
-        return console.log(err.response.data);
-      });
+    init: function init() {// axios.get('/user-info')
+      // .then(res => this.form = res.data.data)
+      // .catch(err => console.log(err.response.data));
     },
-    updateUser: function updateUser() {
-      var _this2 = this;
-
-      axios.post('/user', this.form).then(function (res) {
-        _this2.message = res.data.message;
-        _this2.className = 'success';
-      })["catch"](function (err) {
-        console.log(err.response.data);
-        _this2.message = err.response.data.message;
-        _this2.className = 'error';
-      });
+    updateUser: function updateUser() {// axios.post('/user', this.form)
+      // .then(res => {
+      //     this.message = res.data.message
+      //     this.className = 'success';
+      // })
+      // .catch(err => {
+      //     console.log(err.response.data)
+      //     this.message = err.response.data.message
+      //     this.className = 'error';
+      // });
     }
   }
 });
@@ -7354,6 +7345,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Comments",
   props: {
+    postId: {
+      type: Number,
+      required: true
+    },
     comments: {
       type: Array,
       required: true
@@ -7470,11 +7465,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WriteComment",
+  props: {
+    postId: {
+      type: Number,
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      form: {
+        comment: ''
+      }
+    };
+  },
   computed: {
     isAuth: function isAuth() {
       return this.$store.state.isAuth ? true : false;
+    },
+    user: function user() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    addComment: function addComment() {
+      axios.post("/post/".concat(this.postId, "/comment"), this.form).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (err) {
+        return console.log(err.response.data);
+      });
     }
   }
 });
@@ -44317,9 +44343,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("img", {
-                          attrs: { src: "https://via.placeholder.com/300x300" }
-                        }),
+                        _c("img", { attrs: { src: _vm.user.avatar } }),
                         _vm._v(" "),
                         _c("span", { staticClass: "indicator" })
                       ]
@@ -44337,7 +44361,7 @@ var render = function() {
                         _c("div", { staticClass: "inner" }, [
                           _c("div", { staticClass: "nav-drop-header" }, [
                             _c("span", { staticClass: "username" }, [
-                              _vm._v("Jenna Davis")
+                              _vm._v(_vm._s(_vm.user.name))
                             ]),
                             _vm._v(" "),
                             _c(
@@ -44376,10 +44400,7 @@ var render = function() {
                                     _c("div", { staticClass: "media-left" }, [
                                       _c("div", { staticClass: "image" }, [
                                         _c("img", {
-                                          attrs: {
-                                            src:
-                                              "https://via.placeholder.com/300x300"
-                                          }
+                                          attrs: { src: _vm.user.avatar }
                                         })
                                       ])
                                     ]),
@@ -44388,7 +44409,9 @@ var render = function() {
                                       "div",
                                       { staticClass: "media-content" },
                                       [
-                                        _c("h3", [_vm._v("Jenna Davis")]),
+                                        _c("h3", [
+                                          _vm._v(_vm._s(_vm.user.name))
+                                        ]),
                                         _vm._v(" "),
                                         _c("small", [_vm._v("Main account")])
                                       ]
@@ -52726,9 +52749,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "avatar-wrap" }, [
-            _c("img", {
-              attrs: { src: "https://via.placeholder.com/300x300" }
-            }),
+            _c("img", { attrs: { src: _vm.user.avatar } }),
             _vm._v(" "),
             _c(
               "div",
@@ -52738,7 +52759,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("h4", [_vm._v("Jenna Davis")]),
+          _c("h4", [_vm._v(_vm._s(_vm.user.name))]),
           _vm._v(" "),
           _c("p", [_vm._v("Melbourne, AU")])
         ]),
@@ -54723,7 +54744,12 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "card-footer" }, [_c("write-comment")], 1)
+        _c(
+          "div",
+          { staticClass: "card-footer" },
+          [_c("write-comment", { attrs: { postId: _vm.postId } })],
+          1
+        )
       ])
     : _vm._e()
 }
@@ -54876,41 +54902,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.isAuth
-    ? _c("div", { staticClass: "media post-comment has-emojis" }, [_vm._m(0)])
-    : _vm._e()
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "media-content" }, [
-      _c("div", { staticClass: "field" }, [
-        _c("p", { staticClass: "control" }, [
-          _c("textarea", {
-            staticClass: "textarea comment-textarea",
-            attrs: { rows: "1", placeholder: "Write a comment..." }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "actions" }, [
-        _c("div", { staticClass: "image is-32x32" }, [
-          _c("img", {
-            staticClass: "is-rounded",
-            attrs: { src: "https://via.placeholder.com/300x300" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "toolbar" }, [
-          _c("a", { staticClass: "button is-solid primary-button raised" }, [
-            _vm._v("Post Comment")
+    ? _c("div", { staticClass: "media post-comment has-emojis" }, [
+        _c("div", { staticClass: "media-content" }, [
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.comment,
+                    expression: "form.comment"
+                  }
+                ],
+                staticClass: "textarea comment-textarea",
+                attrs: { rows: "1", placeholder: "Write a comment..." },
+                domProps: { value: _vm.form.comment },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "comment", $event.target.value)
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "actions" }, [
+            _c("div", { staticClass: "image is-32x32" }, [
+              _c("img", {
+                staticClass: "is-rounded",
+                attrs: { src: _vm.user.avatar }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "toolbar" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "button is-solid primary-button raised",
+                  on: { click: _vm.addComment }
+                },
+                [_vm._v("Post Comment")]
+              )
+            ])
           ])
         ])
       ])
-    ])
-  }
-]
+    : _vm._e()
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -55172,7 +55215,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("comments", {
-        attrs: { comments: _vm.post.comments, show: _vm.showComment }
+        attrs: {
+          postId: _vm.post.id,
+          comments: _vm.post.comments,
+          show: _vm.showComment
+        }
       })
     ],
     1
@@ -73726,6 +73773,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  authUser: function authUser(state) {
+    return state.user;
+  },
   userId: function userId(state) {
     return state.user.id;
   }

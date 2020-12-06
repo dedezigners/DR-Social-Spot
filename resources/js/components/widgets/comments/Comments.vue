@@ -10,7 +10,7 @@
         </div>
 
         <div class="card-footer">
-            <write-comment />
+            <write-comment :postId="postId" />
         </div>
     </div>
 </template>
@@ -23,6 +23,10 @@ import WriteComment from './WriteComment';
 export default {
     name: "Comments",
     props: {
+        postId: {
+            type: Number,
+            required: true,
+        },
         comments: {
             type: Array,
             required: true,

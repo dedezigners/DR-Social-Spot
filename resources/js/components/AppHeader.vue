@@ -78,14 +78,14 @@
                     </div>
                     <div v-else class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image" @click="enableDropdown = true">
-                            <img src="https://via.placeholder.com/300x300" />
+                            <img :src="user.avatar" />
                             <span class="indicator"></span>
                         </div>
 
                         <div :class="['nav-drop is-account-dropdown', enableDropdown ? 'is-active' : '']">
                             <div class="inner">
                                 <div class="nav-drop-header">
-                                    <span class="username">Jenna Davis</span>
+                                    <span class="username">{{ user.name }}</span>
                                     <a @click="enableDropdown = false"><load-svg feather="x" /></a>
                                 </div>
                                 <div class="nav-drop-body account-items" @click="enableDropdown = false">
@@ -93,11 +93,11 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
-                                                    <img src="https://via.placeholder.com/300x300" />
+                                                    <img :src="user.avatar" />
                                                 </div>
                                             </div>
                                             <div class="media-content">
-                                                <h3>Jenna Davis</h3>
+                                                <h3>{{ user.name }}</h3>
                                                 <small>Main account</small>
                                             </div>
                                             <div class="media-right">
@@ -162,6 +162,9 @@ export default {
         isAuth: function() {
             return user.loggedIn();
             // return this.$store.state.isAuth;
+        },
+        user: function() {
+            return this.$store.getters.authUser;
         }
     },
     methods: {

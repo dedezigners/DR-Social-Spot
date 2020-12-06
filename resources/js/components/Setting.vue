@@ -8,12 +8,12 @@
                         <load-svg feather="x" />
                     </a>
                     <div class="avatar-wrap">
-                        <img src="https://via.placeholder.com/300x300" />
+                        <img :src="user.avatar" />
                         <div class="badge">
                             <load-svg feather="check" />
                         </div>
                     </div>
-                    <h4>Jenna Davis</h4>
+                    <h4>{{ user.name }}</h4>
                     <p>Melbourne, AU</p>
                 </div>
                 <div class="user-menu">
@@ -450,25 +450,19 @@ export default {
         return {
             SECTIONS,
             activeSecton: SECTIONS.GENERAL,
-            form: {
-                first_name: '',
-                last_name: '',
-                email: '',
-                backup_email: '',
-                address: '',
-                city: '',
-                postal_code: '',
-                state: '',
-                country: '',
-                phone: ''
-            },
             secure: {
                 current_password: '',
                 new_password: '',
                 repeat_password: ''
             },
+            form: [],
             message: '',
             className: 'error'
+        }
+    },
+    computed: {
+        user: function() {
+            return this.$store.getters.authUser;
         }
     },
     mounted() {
@@ -476,21 +470,21 @@ export default {
     },
     methods: {
         init() {
-            axios.get('/user-info')
-            .then(res => this.form = res.data.data)
-            .catch(err => console.log(err.response.data));
+            // axios.get('/user-info')
+            // .then(res => this.form = res.data.data)
+            // .catch(err => console.log(err.response.data));
         },
         updateUser() {
-            axios.post('/user', this.form)
-            .then(res => {
-                this.message = res.data.message
-                this.className = 'success';
-            })
-            .catch(err => {
-                console.log(err.response.data)
-                this.message = err.response.data.message
-                this.className = 'error';
-            });
+            // axios.post('/user', this.form)
+            // .then(res => {
+            //     this.message = res.data.message
+            //     this.className = 'success';
+            // })
+            // .catch(err => {
+            //     console.log(err.response.data)
+            //     this.message = err.response.data.message
+            //     this.className = 'error';
+            // });
         }
     }
 }

@@ -33,7 +33,7 @@
             </div>
         </div>
         
-        <comments :comments="post.comments" :show="showComment" />
+        <comments :postId="post.id" :comments="post.comments" :show="showComment" />
     </div>
 </template>
 
