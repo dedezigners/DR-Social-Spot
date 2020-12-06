@@ -7263,18 +7263,26 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     likeDislike: function likeDislike() {
+      var _this = this;
+
       this.isLike = !this.isLike;
 
       if (this.$store.state.isAuth) {
         if (this.isLike) {
           axios.post("/post/".concat(this.postId, "/like")).then(function (res) {
-            console.log(res.data);
+            _this.$store.commit('savePostLike', {
+              postId: _this.postId,
+              like: res.data.data
+            });
           })["catch"](function (err) {
             return console.log(err.response.data);
           });
         } else {
           axios.post("/post/".concat(this.postId, "/dislike")).then(function (res) {
-            console.log(res.data);
+            _this.$store.commit('savePostUnlike', {
+              postId: _this.postId,
+              userId: res.data.userId
+            });
           })["catch"](function (err) {
             return console.log(err.response.data);
           });
@@ -73931,6 +73939,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   addLatestPost: function addLatestPost(state, payload) {
     state.posts.unshift(payload);
+  },
+  savePostLike: function savePostLike(state, payload) {
+    var post = state.posts.find(function (post) {
+      return post.id === payload.postId;
+    });
+    post.likes.unshift(payload.like);
+  },
+  savePostUnlike: function savePostUnlike(state, payload) {
+    var postIndex = state.posts.findIndex(function (post) {
+      return post.id === payload.postId;
+    });
+    var likeIndex = state.posts[postIndex].likes.findIndex(function (like) {
+      return like.userId === payload.userId;
+    });
+    state.posts[postIndex].likes.splice(likeIndex, 1);
   }
 });
 

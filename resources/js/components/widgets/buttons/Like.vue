@@ -36,13 +36,19 @@ export default {
                 if (this.isLike) {
                     axios.post(`/post/${this.postId}/like`)
                     .then(res => {
-                        console.log(res.data);
+                        this.$store.commit('savePostLike', {
+                            postId: this.postId,
+                            like: res.data.data
+                        });
                     })
                     .catch(err => console.log(err.response.data));
                 } else {
                     axios.post(`/post/${this.postId}/dislike`)
                     .then(res => {
-                        console.log(res.data);
+                        this.$store.commit('savePostUnlike', {
+                            postId: this.postId,
+                            userId: res.data.userId
+                        });
                     })
                     .catch(err => console.log(err.response.data));
                 }

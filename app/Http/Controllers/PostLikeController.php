@@ -22,6 +22,8 @@ class PostLikeController extends Controller
     public function dislike(Post $post)
     {
         $post->likes()->where('user_id', auth()->id())->first()->delete();
-        return true;
+        return response()->json([
+            'userId' => auth()->id()
+        ], 200);
     }
 }
