@@ -18,7 +18,7 @@
                 <div class="toolbar">
                     <a
                     @click="addComment"
-                    class="button is-solid primary-button raised">Post Comment</a>
+                    :class="['button is-solid primary-button raised', !canPost ? 'is-disabled' : '']">Post Comment</a>
                 </div>
             </div>
         </div>
@@ -47,13 +47,16 @@ export default {
         },
         user: function() {
             return this.$store.state.user;
+        },
+        canPost: function() {
+            return this.form.comment ? true : false;
         }
     },
     methods: {
         addComment() {
             axios.post(`/post/${this.postId}/comment`, this.form)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data.data)
             })
             .catch(err => console.log(err.response.data));
         }

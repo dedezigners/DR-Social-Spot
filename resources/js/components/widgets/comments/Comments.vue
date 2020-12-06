@@ -1,12 +1,15 @@
 <template>
     <div class="comments-wrap" v-if="show">
-        <div class="comments-heading" v-if="false">
-            <h4>Comments<small>({{ comments.length }})</small></h4>
+        <div class="comments-heading" v-if="comments.length">
+            <h4>Comments <small>({{ comments.length }})</small></h4>
         </div>
 
         <div class="comments-body has-slimscroll" v-if="comments.length">
             <empty-comment v-if="false" />
-            <single-comment />
+            <single-comment
+            v-for="comment in comments"
+            :key="comment.id"
+            :comment="comment" :post="postId" />
         </div>
 
         <div class="card-footer">
@@ -45,5 +48,16 @@ export default {
 <style lang="scss" scoped>
 .comments-wrap {
     border-top: 1px solid rgba(219,219,219,0.5);
+    .comments-heading {
+        background-color: rgb(208, 209, 210);
+        padding: 8px 16px !important;
+        
+        h4 {
+            color: #1b1c21 !important;
+        }
+    }
+    .comments-body {
+        max-height: 250px !important;
+    }
 }
 </style>

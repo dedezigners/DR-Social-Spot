@@ -29,7 +29,7 @@
                     <p>{{ likersMessage }}</p>
                 </div>
 
-                <social-count :likes="post.likes.length" />
+                <social-count :likes="post.likes.length" :comments="post.comments.length" />
             </div>
         </div>
         

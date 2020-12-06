@@ -14,6 +14,7 @@ class PostLikeController extends Controller
         $postLike = new PostLike([
             'user_id' => auth()->id()
         ]);
+        
         $like = $post->likes()->save($postLike);
         return new LikeResource($like);
     }

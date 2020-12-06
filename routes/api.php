@@ -43,4 +43,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/post/{post}/dislike', 'PostLikeController@dislike');
 
     Route::post('/post/{post}/comment', 'PostCommentController@store');
+    Route::delete('/post/{post}/comment/{comment}/delete', 'PostCommentController@destroy');
 });

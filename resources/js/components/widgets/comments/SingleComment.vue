@@ -7,22 +7,24 @@
         </div>
         
         <div class="media-content">
-            <a href="#">Dan Walker</a>
-            <span class="time">28 minutes ago</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris consequat.</p>
-            <!-- Actions -->
+            <a :href="comment.user.profile">{{ comment.user.name }}</a>
+            <span class="time">{{ comment.createdAt }}</span>
+            <p v-html="comment.comment"></p>
+            
             <div class="controls">
                 <div class="like-count">
                     <load-svg feather="thumbs-up" />
-                    <span>4</span>
+                    <span>{{ comment.likes.length }}</span>
                 </div>
-                <div class="reply">
+                <div class="reply" v-if="false">
                     <a href="#">Reply</a>
                 </div>
-                <div class="edit">
-                    <a href="#">Edit</a>
-                </div>
+                <div class="edit"
+                v-if="isAdmin"><a href="#">Edit</a></div>
+                <div
+                class="delete"
+                @click="deleteComment"
+                v-if="isAdmin"></div>
             </div>
         </div>
     </div>
@@ -30,6 +32,35 @@
 
 <script>
 export default {
-    name: "SingleComment"
+    name: "SingleComment",
+    props: {
+        post: {
+            type: Number,
+            required: true
+        },
+        comment: {
+            type: Object,
+            required: true
+        }
+    },
+    computed: {
+        isAdmin: function () {
+            return this.comment.userId === this.$store.getters.userId ? true : false;
+        }
+    },
+    methods: {
+        deleteComment() {
+            axios.delete(`/post/${this.post}/comment/${this.comment.id}/delete`)
+            .then(res => {
+                console.log(res.data);
+            });
+        }
+    }
 }
 </script>
+
+<style lang="scss" scoped>
+.card .media:not(:last-child) {
+    margin-bottom: 0;
+}
+</style>
