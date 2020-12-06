@@ -2186,9 +2186,6 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     posts: function posts() {
       return this.$store.state.posts;
-    },
-    userinfo: function userinfo() {
-      return this.$store.state.userinfo;
     }
   }
 });
@@ -7773,9 +7770,6 @@ __webpack_require__.r(__webpack_exports__);
       maxLikersImage: 5
     };
   },
-  mounted: function mounted() {
-    this.initEvents();
-  },
   computed: {
     likersUsers: function likersUsers() {
       var likers = ['<a>No Likes</a>'];
@@ -7821,13 +7815,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     user: function user() {
       return this.$store.state.user;
-    }
-  },
-  methods: {
-    initEvents: function initEvents() {// do basics for single post item
-      // EventBus.$on('showHideComment', () => {
-      //     console.log('Comment event hit');
-      // });
     }
   }
 });

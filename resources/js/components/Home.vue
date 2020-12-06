@@ -33,9 +33,6 @@ export default {
     computed: {
         posts: function() {
             return this.$store.state.posts;
-        },
-        userinfo: function() {
-            return this.$store.state.userinfo;
         }
     }
 }

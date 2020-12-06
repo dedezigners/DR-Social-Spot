@@ -59,9 +59,6 @@ export default {
             maxLikersImage: 5,
         }
     },
-    mounted() {
-        this.initEvents();
-    },
     computed: {
         likersUsers: function() {
             let likers = ['<a>No Likes</a>'];
@@ -106,13 +103,5 @@ export default {
             return this.$store.state.user;
         },
     },
-    methods: {
-        initEvents() {
-            // do basics for single post item
-            // EventBus.$on('showHideComment', () => {
-            //     console.log('Comment event hit');
-            // });
-        },
-    }
 }
 </script>
