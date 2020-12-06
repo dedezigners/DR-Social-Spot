@@ -12377,7 +12377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".comments-wrap[data-v-99d0a598] {\n  border-top: 1px solid rgba(219, 219, 219, 0.5);\n}\n.comments-wrap .comments-heading[data-v-99d0a598] {\n  background-color: #d0d1d2;\n  padding: 8px 16px !important;\n}\n.comments-wrap .comments-heading h4[data-v-99d0a598] {\n  color: #1b1c21 !important;\n}\n.comments-wrap .comments-body[data-v-99d0a598] {\n  max-height: 250px !important;\n}", ""]);
+exports.push([module.i, ".comments-wrap[data-v-99d0a598] {\n  border-top: 1px solid rgba(219, 219, 219, 0.5);\n}\n.comments-wrap .comments-heading[data-v-99d0a598] {\n  padding: 8px 16px !important;\n}\n.comments-wrap .comments-heading h4[data-v-99d0a598] {\n  color: #1b1c21 !important;\n}\n.comments-wrap .comments-body[data-v-99d0a598] {\n  max-height: 250px !important;\n}", ""]);
 
 // exports
 

@@ -49,7 +49,6 @@ export default {
 .comments-wrap {
     border-top: 1px solid rgba(219,219,219,0.5);
     .comments-heading {
-        background-color: rgb(208, 209, 210);
         padding: 8px 16px !important;
         
         h4 {
