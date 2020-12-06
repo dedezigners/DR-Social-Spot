@@ -7460,8 +7460,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     deleteComment: function deleteComment() {
+      var _this = this;
+
       axios["delete"]("/post/".concat(this.post, "/comment/").concat(this.comment.id, "/delete")).then(function (res) {
-        console.log(res.data);
+        _this.$store.commit('deletePostComment', {
+          postId: _this.post,
+          commentId: res.data.commentId
+        });
       });
     }
   }
@@ -7533,8 +7538,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addComment: function addComment() {
+      var _this = this;
+
       axios.post("/post/".concat(this.postId, "/comment"), this.form).then(function (res) {
-        console.log(res.data.data);
+        _this.$store.commit('addPostComment', {
+          postId: _this.postId,
+          comment: res.data.data
+        });
+
+        _this.form.comment = '';
       })["catch"](function (err) {
         return console.log(err.response.data);
       });
@@ -73954,6 +73966,21 @@ __webpack_require__.r(__webpack_exports__);
       return like.userId === payload.userId;
     });
     state.posts[postIndex].likes.splice(likeIndex, 1);
+  },
+  addPostComment: function addPostComment(state, payload) {
+    var post = state.posts.find(function (post) {
+      return post.id === payload.postId;
+    });
+    post.comments.unshift(payload.comment);
+  },
+  deletePostComment: function deletePostComment(state, payload) {
+    var postIndex = state.posts.findIndex(function (post) {
+      return post.id === payload.postId;
+    });
+    var commentIndex = state.posts[postIndex].comments.findIndex(function (comment) {
+      return comment.id === payload.commentId;
+    });
+    state.posts[postIndex].comments.splice(commentIndex, 1);
   }
 });
 

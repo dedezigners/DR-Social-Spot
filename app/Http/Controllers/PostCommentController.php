@@ -29,6 +29,6 @@ class PostCommentController extends Controller
         $comment->delete();
         return response()->json([
             'commentId' => $comment->id
-        ]);
+        ], 200);
     }
 }

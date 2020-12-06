@@ -52,7 +52,10 @@ export default {
         deleteComment() {
             axios.delete(`/post/${this.post}/comment/${this.comment.id}/delete`)
             .then(res => {
-                console.log(res.data);
+                this.$store.commit('deletePostComment', {
+                    postId:  this.post,
+                    commentId: res.data.commentId
+                });
             });
         }
     }

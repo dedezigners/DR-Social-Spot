@@ -24,7 +24,7 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(PostComment::class);
+        return $this->hasMany(PostComment::class)->latest();
     }
 
     public function likes()

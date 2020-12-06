@@ -56,7 +56,11 @@ export default {
         addComment() {
             axios.post(`/post/${this.postId}/comment`, this.form)
             .then(res => {
-                console.log(res.data.data)
+                this.$store.commit('addPostComment', {
+                    postId:  this.postId,
+                    comment: res.data.data
+                });
+                this.form.comment = '';
             })
             .catch(err => console.log(err.response.data));
         }
