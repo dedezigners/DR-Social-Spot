@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject
     
     public function getAvatarAttribute()
     {
-        return 'https://via.placeholder.com/300x300';
+        return asset('/assets/img/user.png');
     }
     
     public function getProfileAttribute()

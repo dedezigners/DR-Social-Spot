@@ -18,12 +18,10 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->user->name,
             'type' => $this->type,
             'post' => $this->post,
             'image' => null,
-            'likesCount' => 8,
-            'commentsCount' => 12,
+            'user' => new UserResource($this->user),
             'likes' => LikeResource::collection($this->likes),
             'comments' => CommentResource::collection($this->comments),
             'createdAt' => $this->created_at->diffForHumans()

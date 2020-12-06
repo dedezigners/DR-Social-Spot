@@ -7268,18 +7268,20 @@ __webpack_require__.r(__webpack_exports__);
     likeDislike: function likeDislike() {
       this.isLike = !this.isLike;
 
-      if (this.isLike) {
-        axios.post("/post/".concat(this.postId, "/like")).then(function (res) {
-          console.log(res.data);
-        })["catch"](function (err) {
-          return console.log(err.response.data);
-        });
-      } else {
-        axios.post("/post/".concat(this.postId, "/dislike")).then(function (res) {
-          console.log(res.data);
-        })["catch"](function (err) {
-          return console.log(err.response.data);
-        });
+      if (this.$store.state.isAuth) {
+        if (this.isLike) {
+          axios.post("/post/".concat(this.postId, "/like")).then(function (res) {
+            console.log(res.data);
+          })["catch"](function (err) {
+            return console.log(err.response.data);
+          });
+        } else {
+          axios.post("/post/".concat(this.postId, "/dislike")).then(function (res) {
+            console.log(res.data);
+          })["catch"](function (err) {
+            return console.log(err.response.data);
+          });
+        }
       }
     }
   }
@@ -7586,6 +7588,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isAuth: function isAuth() {
       return this.$store.state.isAuth;
+    },
+    user: function user() {
+      return this.$store.getters.authUser;
     },
     publishButton: function publishButton() {
       if (this.form.message) {
@@ -55018,9 +55023,7 @@ var render = function() {
             _c("div", { staticClass: "tab-content" }, [
               _c("div", { staticClass: "compose" }, [
                 _c("div", { staticClass: "compose-form" }, [
-                  _c("img", {
-                    attrs: { src: "https://via.placeholder.com/300x300" }
-                  }),
+                  _c("img", { attrs: { src: _vm.user.avatar } }),
                   _vm._v(" "),
                   _c("div", { staticClass: "control" }, [
                     _c("textarea", {
@@ -55158,11 +55161,13 @@ var render = function() {
       _c("div", { staticClass: "content-wrap" }, [
         _c("div", { staticClass: "card-heading" }, [
           _c("div", { staticClass: "user-block" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "image" }, [
+              _c("img", { attrs: { src: _vm.post.user.avatar } })
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "user-info" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v(_vm._s(_vm.post.name))
+              _c("a", { attrs: { href: _vm.post.user.profile } }, [
+                _vm._v(_vm._s(_vm.post.user.name))
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "time" }, [
@@ -55225,16 +55230,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "image" }, [
-      _c("img", { attrs: { src: "https://via.placeholder.com/300x300" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

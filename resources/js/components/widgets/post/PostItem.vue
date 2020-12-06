@@ -4,10 +4,10 @@
             <div class="card-heading">
                 <div class="user-block">
                     <div class="image">
-                        <img src="https://via.placeholder.com/300x300" />
+                        <img :src="post.user.avatar" />
                     </div>
                     <div class="user-info">
-                        <a href="#">{{ post.name }}</a>
+                        <a :href="post.user.profile">{{ post.user.name }}</a>
                         <span class="time">{{ post.createdAt }}</span>
                     </div>
                 </div>

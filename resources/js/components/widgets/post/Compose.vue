@@ -21,7 +21,7 @@
             <div class="tab-content">
                 <div class="compose">
                     <div class="compose-form">
-                        <img src="https://via.placeholder.com/300x300" />
+                        <img :src="user.avatar" />
                         <div class="control">
                             <textarea
                             class="textarea"
@@ -69,6 +69,9 @@ export default {
     computed: {
         isAuth: function () {
             return this.$store.state.isAuth;
+        },
+        user: function() {
+            return this.$store.getters.authUser;
         },
         publishButton: function () {
             if (this.form.message) {

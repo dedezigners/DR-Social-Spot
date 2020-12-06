@@ -32,18 +32,20 @@ export default {
         likeDislike() {
             this.isLike = !this.isLike;
 
-            if (this.isLike) {
-                axios.post(`/post/${this.postId}/like`)
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(err => console.log(err.response.data));
-            } else {
-                axios.post(`/post/${this.postId}/dislike`)
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(err => console.log(err.response.data));
+            if (this.$store.state.isAuth) {
+                if (this.isLike) {
+                    axios.post(`/post/${this.postId}/like`)
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => console.log(err.response.data));
+                } else {
+                    axios.post(`/post/${this.postId}/dislike`)
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => console.log(err.response.data));
+                }
             }
         }
     },
