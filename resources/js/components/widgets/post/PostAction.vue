@@ -1,7 +1,7 @@
 <template>
     <div class="post-actions">
         <like :postId="postId" :like="like" />
-        <comment />
+        <comment :show="show" />
         <share v-if="false" />
     </div>
 </template>
@@ -17,6 +17,11 @@ export default {
         like: {
             type: Boolean,
             default: false
+        },
+        show: {
+            type: Boolean,
+            default: false,
+            required: true
         }
     },
     data() {

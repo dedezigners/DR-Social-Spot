@@ -18,7 +18,7 @@
                     <p>{{ post.post }}</p>
                 </div>
                 
-                <post-action :postId="post.id" :like="isLike" />
+                <post-action :postId="post.id" :like="isLike" :show="showComment" />
             </div>
 
             <div class="card-footer">
@@ -33,7 +33,7 @@
             </div>
         </div>
         
-        <comments v-if="false" />
+        <comments :comments="post.comments" :show="showComment" />
     </div>
 </template>
 
@@ -58,6 +58,9 @@ export default {
             maxLikersName: 3,
             maxLikersImage: 5,
         }
+    },
+    mounted() {
+        this.initEvents();
     },
     computed: {
         likersUsers: function() {
@@ -90,15 +93,26 @@ export default {
             }
             return false;
         },
-        user: function() {
-            return this.$store.state.user;
-        },
         isLike: function() {
             if (this.$store.state.isAuth && this.$store.getters.userId) {
                 return this.post.likes.some(liker => liker.userId === this.$store.getters.userId);
             }
             return false;
-        }
+        },
+        showComment: function () {
+            return this.$store.state.isAuth || this.post.comments.length ? true : false;
+        },
+        user: function() {
+            return this.$store.state.user;
+        },
+    },
+    methods: {
+        initEvents() {
+            // do basics for single post item
+            // EventBus.$on('showHideComment', () => {
+            //     console.log('Comment event hit');
+            // });
+        },
     }
 }
 </script>

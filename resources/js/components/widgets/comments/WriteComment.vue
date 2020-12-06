@@ -1,5 +1,5 @@
 <template>
-    <div class="media post-comment has-emojis">
+    <div class="media post-comment has-emojis" v-if="isAuth">
         <div class="media-content">
             <div class="field">
                 <p class="control">
@@ -21,6 +21,11 @@
 
 <script>
 export default {
-    name: "WriteComment"
+    name: "WriteComment",
+    computed: {
+        isAuth: function() {
+            return this.$store.state.isAuth ? true : false;
+        }
+    }
 }
 </script>
