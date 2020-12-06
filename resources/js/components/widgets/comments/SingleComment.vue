@@ -20,7 +20,7 @@
                     <a href="#">Reply</a>
                 </div>
                 <div class="edit"
-                v-if="isAdmin"><a href="#">Edit</a></div>
+                v-if="false"><a href="#">Edit</a></div>
                 <div
                 class="delete"
                 @click="deleteComment"

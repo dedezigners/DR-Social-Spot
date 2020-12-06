@@ -54936,10 +54936,8 @@ var render = function() {
           ? undefined
           : _vm._e(),
         _vm._v(" "),
-        _vm.isAdmin
-          ? _c("div", { staticClass: "edit" }, [
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Edit")])
-            ])
+        false
+          ? undefined
           : _vm._e(),
         _vm._v(" "),
         _vm.isAdmin
